@@ -158,7 +158,7 @@ var/global/list/roguegamemodes = list("Rebellion", "Vampires and Werewolves", "E
 					log_game("Minor Antagonist: Maniac")
 				if("Lich")
 					pick_lich()
-					log_game("Minor Antagonist: Lich")	
+					log_game("Minor Antagonist: Lich")
 				if("Cultists")
 					pick_cultist()
 					log_game("Major Antagonist: Cultists")
@@ -202,7 +202,7 @@ var/global/list/roguegamemodes = list("Rebellion", "Vampires and Werewolves", "E
 	// if(prob(10))
 	// 	pick_maniac()
 	// 	log_game("Minor Antagonist: Maniac")
-	
+
 	return TRUE
 
 /datum/game_mode/chaosmode/proc/pick_bandits()
@@ -574,7 +574,6 @@ var/global/list/roguegamemodes = list("Rebellion", "Vampires and Werewolves", "E
 ///////////////// WWOLF
 	for(var/datum/mind/werewolf in pre_werewolves)
 		var/datum/antagonist/new_antag = new /datum/antagonist/werewolf()
-		//addtimer(CALLBACK(werewolf, TYPE_PROC_REF(/datum/mind, add_antag_datum), new_antag), rand(10,100))
 		werewolf.add_antag_datum(new_antag)
 		GLOB.pre_setup_antags -= werewolf
 		werewolves += werewolf
