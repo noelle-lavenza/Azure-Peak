@@ -488,7 +488,7 @@ GLOBAL_LIST_EMPTY(ritualslist)
 				H.adjust_triumphs(-1)
 				H.visible_message(span_danger("\The [H] thrashes around, unyielding!"))
 				to_chat(H.mind, span_danger("\"Yield.\""))
-				if(H.electrocute_act(10, src))
+				if(H.electrocute_act(10, C))
 					H.emote("painscream")
 				sleep(20)
 				H.anchored = FALSE
@@ -596,8 +596,8 @@ GLOBAL_LIST_EMPTY(ritualslist)
 						return
 					HL.apply_status_effect(/datum/status_effect/debuff/sleepytime)
 					to_chat(HL.mind, span_warning("This isn't my bed... Where am I?!"))
-					HL.playsound_local(src, pick('sound/misc/jumphumans (1).ogg','sound/misc/jumphumans (2).ogg','sound/misc/jumphumans (3).ogg'), 100)
 					HL.forceMove(C)
+					HL.playsound_local(C, pick('sound/misc/jumphumans (1).ogg','sound/misc/jumphumans (2).ogg','sound/misc/jumphumans (3).ogg'), 100)
 					qdel(P)
 
 /datum/ritual/falseappearance
@@ -921,19 +921,19 @@ GLOBAL_LIST_EMPTY(ritualslist)
 	for(var/mob/living/carbon/human/H in C.contents)
 		if(!iszizocultist(H))
 			return
-		for(var/mob/living/carbon/human/VIRGIN in get_step(src, NORTH))
+		for(var/mob/living/carbon/human/VIRGIN in get_step(C, NORTH))
 			if(!VIRGIN.virginity && VIRGIN.stat != DEAD)
 				break
 			VIRGIN.gib()
-		for(var/mob/living/carbon/human/SOMEDUDE in get_step(src, EAST))
+		for(var/mob/living/carbon/human/SOMEDUDE in get_step(C, EAST))
 			if(SOMEDUDE.stat != DEAD)
 				break
 			SOMEDUDE.gib()
-		for(var/mob/living/carbon/human/SOMEDUDE in get_step(src, SOUTH))
+		for(var/mob/living/carbon/human/SOMEDUDE in get_step(C, SOUTH))
 			if(SOMEDUDE.stat != DEAD)
 				break
 			SOMEDUDE.gib()
-		for(var/mob/living/carbon/human/SOMEDUDE in get_step(src, WEST))
+		for(var/mob/living/carbon/human/SOMEDUDE in get_step(C, WEST))
 			if(SOMEDUDE.stat != DEAD)
 				break
 			SOMEDUDE.gib()
