@@ -1,6 +1,6 @@
 /turf/open/space
 	icon = 'icons/turf/space.dmi'
-	icon_state = "0"
+	icon_state = "black"
 	name = "\proper nothing"
 	intact = 0
 
