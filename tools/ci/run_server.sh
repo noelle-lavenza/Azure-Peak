@@ -20,7 +20,9 @@ DreamDaemon roguetown.dmb -close -trusted -verbose -params "log-directory=ci"
 
 cd ..
 
-mkdir -p data/screenshots_new
-cp -r ci_test/data/screenshots_new data/screenshots_new
+# We don't actually have screenshot tests set up,
+# nor do we have consistent subtypes that we could use for them.
+# mkdir -p data/screenshots_new
+# cp -r ci_test/data/screenshots_new data/screenshots_new
 
 cat ci_test/data/logs/ci/clean_run.lk
