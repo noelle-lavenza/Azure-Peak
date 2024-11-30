@@ -57,10 +57,10 @@
 	TEST_ASSERT(patient.getFireLoss() < 100, "Tending burn wounds didn't lower burn damage ([patient.getFireLoss()])")
 
 	// Test that wearing clothing lowers heal amount
-	var/mob/living/carbon/human/naked_patient = allocate(/mob/living/carbon/human)
+	var/mob/living/carbon/human/species/human/northern/naked_patient = allocate(/mob/living/carbon/human/species/human/northern)
 	naked_patient.get_bodypart(BODY_ZONE_CHEST).receive_damage(100, 100)
 
-	var/mob/living/carbon/human/clothed_patient = allocate(/mob/living/carbon/human)
+	var/mob/living/carbon/human/species/human/northern/clothed_patient = allocate(/mob/living/carbon/human/species/human/northern)
 	clothed_patient.get_bodypart(BODY_ZONE_CHEST).receive_damage(100, 100) // take damage before putting on clothes in case they block some of the damage
 	clothed_patient.equipOutfit(/datum/outfit/job/roguetown/tester, TRUE)
 
