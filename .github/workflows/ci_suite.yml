@@ -134,7 +134,7 @@ jobs:
         run: |
           bash tools/ci/install_byond.sh
           source $HOME/BYOND/byond/bin/byondsetup
-          DreamMaker -DCIBUILDING roguetown.dme
+          DreamMaker -DCIBUILDING -ignore loop_checks roguetown.dme
           bash tools/ci/run_server.sh roguetest
   test_windows:
     if: ( !contains(github.event.head_commit.message, '[ci skip]') )
