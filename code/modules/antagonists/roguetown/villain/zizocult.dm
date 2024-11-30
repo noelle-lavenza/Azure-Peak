@@ -945,7 +945,7 @@ GLOBAL_LIST_EMPTY(ritualslist)
 		trl.ckey = H.ckey
 		H.gib()
 		for(var/mob/living/carbon/V in GLOB.human_list)
-			if(!V.mind in CM.cultists)
+			if(!(V.mind in CM.cultists))
 				to_chat(V, span_danger("I CAN --FEEL-- SOMETHING -HORRIBLE- HAS AWAKENED...!!"))
 				V.do_freakout_scream()
 				V.add_stress(/datum/stressevent/hatezizo)
