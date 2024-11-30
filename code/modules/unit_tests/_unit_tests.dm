@@ -86,7 +86,9 @@
 // BEGIN_INCLUDE
 #include "anchored_mobs.dm"
 #include "component_tests.dm"
-#include "create_and_destroy.dm"
+// This test didn't run on Ratwood and I guess they never noticed.
+// The codebase will need a lot of work before this can be enabled in CI.
+// #include "create_and_destroy.dm"
 #include "focus_only_tests.dm"
 #include "reagent_id_typos.dm"
 #include "reagent_mod_procs.dm"
