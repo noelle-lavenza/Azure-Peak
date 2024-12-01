@@ -14,7 +14,7 @@
 
 	outfit = /datum/outfit/job/roguetown/veteran
 	give_bank_account = 1500
-	min_pq = 0
+	min_pq = 15
 	max_pq = null
 
 	cmode_music = 'sound/music/combat_guard.ogg'
@@ -36,5 +36,6 @@
 /datum/outfit/job/roguetown/veteran/pre_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()
 	cloak = /obj/item/clothing/cloak/half/vet
+	r_hand = /obj/item/scomstone
 	l_hand = /obj/item/class_selector/veteran //this is where they equip shit.
 	H.verbs |= /mob/proc/haltyell

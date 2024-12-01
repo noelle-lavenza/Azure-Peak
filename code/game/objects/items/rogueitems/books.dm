@@ -203,7 +203,7 @@
 			user.say(m)
 
 /obj/item/book/rogue/bibble/attack(mob/living/M, mob/user)
-	if(user.mind && user.mind.assigned_role == "Prophet")
+	if(user.mind && user.mind.assigned_role == "Archpriest")
 		if(!user.can_read(src))
 			to_chat(user, span_warning("I don't understand these scribbly black lines."))
 			return
@@ -394,7 +394,7 @@
 	base_icon_state = "basic_book"
 	override_find_book = TRUE
 
-/obj/item/book/rogue/playerbook/Initialize(loc, in_round_player_generated, var/mob/living/in_round_player_mob, text)
+/obj/item/book/rogue/playerbook/Initialize(loc, in_round_player_generated, mob/living/in_round_player_mob, text)
 	. = ..()
 	is_in_round_player_generated = in_round_player_generated
 	if(is_in_round_player_generated)

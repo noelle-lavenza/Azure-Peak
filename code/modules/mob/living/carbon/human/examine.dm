@@ -11,7 +11,7 @@
 		event.desc = self_species.stress_desc */
 	if(user.has_flaw(/datum/charflaw/paranoid) && (STASTR - user.STASTR) > 1)
 		user.add_stress(/datum/stressevent/parastr)
-	if(HAS_TRAIT(user, TRAIT_JESTERPHOBIA) && job == "Jester")
+	if(HAS_TRAIT(user, TRAIT_JESTERPHOBIA) && job == "Harlequin")
 		user.add_stress(/datum/stressevent/jesterphobia)
 	if(HAS_TRAIT(src, TRAIT_BEAUTIFUL))
 		user.add_stress(/datum/stressevent/beautiful)
@@ -143,7 +143,7 @@
 					commie_text = span_notice("Free man!")
 				else
 					commie_text = span_userdanger("BANDIT!")
-			if(mind.special_role == "Vampire Lord" && !mind.has_antag_datum(/datum/antagonist/vampirelord/).disguised)
+			if(mind.special_role == "Vampire Lord" && !mind.has_antag_datum(/datum/antagonist/vampirelord)?.disguised)
 				. += span_userdanger("A MONSTER!")
 			if(HAS_TRAIT(src, TRAIT_PUNISHMENT_CURSE))
 				. += span_userdanger("CURSED!")

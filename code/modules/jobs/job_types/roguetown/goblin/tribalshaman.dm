@@ -7,7 +7,7 @@
 	spawn_positions = 1
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = RACES_ALL_KINDSPLUS
-	tutorial = "A tribal druidic shaman that works with shaman magic to heal the wounded and bring the dead back. They also take care of the farming on the side."
+	tutorial = "A tribal druidic shaman that works with shaman magic to heal the wounded and bring even dead back. Their prowess with druidic magic allows them to grow crops and guide the tribe with their wisdoms."
 	display_order = JDO_TRIBALSHAMAN
 	spells = list(/obj/effect/proc_holder/spell/self/convertrole/tribal, /obj/effect/proc_holder/spell/invoked/cure_rot, /obj/effect/proc_holder/spell/invoked/heal/shaman, /obj/effect/proc_holder/spell/invoked/revive/shaman)
 	outfit = /datum/outfit/job/roguetown/tribalshaman
@@ -53,6 +53,9 @@
 		H.mind.adjust_skillrank_up_to(/datum/skill/misc/athletics, 1, TRUE)
 		H.mind.adjust_skillrank_up_to(/datum/skill/misc/sewing, 3, TRUE)
 		H.mind.adjust_skillrank_up_to(/datum/skill/magic/druidic, 2, TRUE) //This does nothing, but maybe one day it will.
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/cure_rot)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/heal/shaman)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/revive/shaman)
 		if(H.age == AGE_OLD)
 			H.mind.adjust_skillrank_up_to(/datum/skill/magic/holy, 1, TRUE)
 			H.mind.adjust_skillrank_up_to(/datum/skill/magic/druidic, 1, TRUE)
@@ -64,9 +67,6 @@
 	ADD_TRAIT(H, TRAIT_NASTY_EATER, TRAIT_GENERIC)
 	ADD_TRAIT(H, TRAIT_PERFECT_TRACKER, TRAIT_GENERIC)
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
-	H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/cure_rot)
-	H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/heal/shaman)
-	H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/revive/shaman)
 	C.grant_spells_priest(H)
 	H.verbs += list(/mob/living/carbon/human/proc/devotionreport, /mob/living/carbon/human/proc/clericpray)
 

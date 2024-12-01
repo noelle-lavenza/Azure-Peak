@@ -180,23 +180,42 @@
 			if(!move_failed)
 				return TRUE
 
-	if(m_intent == MOVE_INTENT_RUN && dir == get_dir(src, M))
+	if(m_intent == MOVE_INTENT_RUN && dir == get_dir(src, M)) // Rebalance of charge code. Taken almost directly from Ratwood.
 		if(isliving(M))
+			var/sprint_distance = sprinted_tiles
+			toggle_rogmove_intent(MOVE_INTENT_WALK, TRUE)
+
 			var/mob/living/L = M
-			var/charge_add = 0
+
+			var/self_points = FLOOR((STACON + STASTR + mind.get_skill_level(/datum/skill/misc/athletics))/2, 1)
+			var/target_points = FLOOR((L.STAEND + L.STASTR + L.mind.get_skill_level(/datum/skill/misc/athletics))/2, 1)
+
+			switch(sprint_distance)
+				// Point blank
+				if(0 to 1)
+					self_points -= 4
+				// One to two tiles between people - this is the main combat case.
+				if(2 to 3)
+					self_points -= 2
+				// Five or above tiles between people - 3-4, a viable combat ram with good planning, results in a modifier of 0.
+				if(6 to INFINITY)
+					self_points += 3 // This is basically impossible to use in combat unless the other guy's asleep, and I think accidentally knocking over someone is funny, so big bonus.
+
+			// If charging into the BACK of the enemy (facing away)
+			if(L.dir == get_dir(src, L))
+				self_points += 2
+
+			// Ratwood does not have artificer, but we do. Numbers are basically the same so I'm keeping the old bonus.
 			if(HAS_TRAIT(src, TRAIT_CHARGER))
-				charge_add = 3
-			if(STACON + charge_add > L.STACON)
-				if(STASTR + charge_add > L.STASTR)
-					L.Knockdown(1)
-					Immobilize(30)
-				else
-					Knockdown(1)
-					Immobilize(30)
-			if(STACON + charge_add < L.STACON)
+				self_points += 3
+
+			// Ratwood has RNG here. No thanks.
+
+			if(self_points > target_points)
+				L.Knockdown(1)
+			if(self_points < target_points)
 				Knockdown(30)
-				Immobilize(30)
-			if(STACON + charge_add == L.STACON)
+			if(self_points == target_points) // Exact match will be rare with athletics being fractional.
 				L.Knockdown(1)
 				Knockdown(30)
 			Immobilize(30)
@@ -482,40 +501,6 @@
 
 /mob/living/proc/set_pull_offsets(mob/living/M, grab_state = GRAB_PASSIVE)
 	return //rtd fix not updating because no dirchange
-	if(M == src)
-		return
-	if(M.wallpressed)
-		return
-	if(M.buckled)
-		return //don't make them change direction or offset them if they're buckled into something.
-	var/offset = 0
-	switch(grab_state)
-		if(GRAB_PASSIVE)
-			offset = GRAB_PIXEL_SHIFT_PASSIVE
-		if(GRAB_AGGRESSIVE)
-			offset = GRAB_PIXEL_SHIFT_AGGRESSIVE
-		if(GRAB_NECK)
-			offset = GRAB_PIXEL_SHIFT_NECK
-		if(GRAB_KILL)
-			offset = GRAB_PIXEL_SHIFT_NECK
-	M.setDir(get_dir(M, src))
-	switch(M.dir)
-		if(NORTH)
-			M.set_mob_offsets("pulledby", _x = 0, _y = offset)
-		if(SOUTH)
-			M.set_mob_offsets("pulledby", _x = 0, _y = -offset)
-		if(EAST)
-			if(M.lying == 270) //update the dragged dude's direction if we've turned
-				M.lying = 90
-				M.update_transform() //force a transformation update, otherwise it'll take a few ticks for update_mobility() to do so
-				M.lying_prev = M.lying
-			M.set_mob_offsets("pulledby", _x = offset, _y = 0)
-		if(WEST)
-			if(M.lying == 90)
-				M.lying = 270
-				M.update_transform()
-				M.lying_prev = M.lying
-			M.set_mob_offsets("pulledby", _x = offset, _y = 0)
 
 /mob/living
 	var/list/mob_offsets = list()
@@ -602,7 +587,7 @@
 		return
 	if(!reaper)
 		return
-	if (InCritical() || health <= 0 || blood_volume in -INFINITY to BLOOD_VOLUME_SURVIVE)
+	if (InCritical() || health <= 0 || (blood_volume < BLOOD_VOLUME_SURVIVE))
 		log_message("Has [whispered ? "whispered his final words" : "succumbed to death"] while in [InFullCritical() ? "hard":"soft"] critical with [round(health, 0.1)] points of health!", LOG_ATTACK)
 		adjustOxyLoss(201)
 		updatehealth()
@@ -914,6 +899,9 @@
 	var/old_direction = dir
 	var/turf/T = loc
 
+	if(m_intent == MOVE_INTENT_RUN)
+		sprinted_tiles++
+
 	if(wallpressed)
 		GetComponent(/datum/component/leaning).wallhug_check(T, newloc, direct)
 
@@ -1077,7 +1065,7 @@
 		else if(last_special <= world.time)
 			resist_restraints() //trying to remove cuffs.
 
-/mob/living/proc/submit(var/instant = FALSE)
+/mob/living/proc/submit(instant = FALSE)
 	set name = "Yield"
 	set category = "IC"
 	set hidden = 1
@@ -2030,7 +2018,7 @@
 	if(!istype(T))
 		return
 	changeNext_move(CLICK_CD_MELEE)
-	
+
 	var/_x = T.x-loc.x
 	var/_y = T.y-loc.y
 	var/dist = get_dist(src, T)

@@ -11,7 +11,6 @@
 	speak_chance = 1
 	turns_per_move = 5
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/rawcrab = 4, /obj/item/natural/carapace = 2)
-	faction = list("crabs")
 	food_type = list(/obj/item/reagent_containers/food/snacks)
 	response_help_continuous = "pets"
 	response_help_simple = "pet"
@@ -81,9 +80,7 @@
 		return
 	spawning = TRUE
 	update_icon()
-	spawn(2 SECONDS)
-		createcrab()
-	//addtimer(CALLBACK(src, PROC_REF(creategob)), 4 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(createcrab)), 2 SECONDS)
 
 
 

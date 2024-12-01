@@ -194,7 +194,7 @@
 	layer = ABOVE_MOB_LAYER
 
 /obj/structure/fluff/railing/Initialize()
-	..()
+	. = ..()
 	var/lay = getwlayer(dir)
 	if(lay)
 		layer = lay
@@ -225,7 +225,7 @@
 		if(!(M.mobility_flags & MOBILITY_STAND))
 			if(passcrawl)
 				return TRUE
-	if(icon_state == "woodrailing" && dir in CORNERDIRS)
+	if(icon_state == "woodrailing" && (dir in CORNERDIRS))
 		var/list/baddirs = list()
 		switch(dir)
 			if(SOUTHEAST)
@@ -256,7 +256,7 @@
 		if(!(M.mobility_flags & MOBILITY_STAND))
 			if(passcrawl)
 				return TRUE
-	if(icon_state == "woodrailing" && dir in CORNERDIRS)
+	if(icon_state == "woodrailing" && (dir in CORNERDIRS))
 		var/list/baddirs = list()
 		switch(dir)
 			if(SOUTHEAST)
@@ -320,7 +320,7 @@
 	climb_offset = 6
 
 /obj/structure/fluff/railing/fence/Initialize()
-	..()
+	. = ..()
 	smooth_fences()
 
 /obj/structure/fluff/railing/fence/Destroy()
@@ -390,8 +390,7 @@
 		return 1
 	if(mover.throwing && !ismob(mover))
 		return prob(66)
-	return !density
-	..()
+	return ..()
 
 /obj/structure/bars/chainlink
 	icon_state = "chainlink"
@@ -1232,7 +1231,7 @@
 
 /obj/structure/fluff/psycross/attackby(obj/item/W, mob/user, params)
 	if(user.mind)
-		if(user.mind.assigned_role == "Prophet")
+		if(user.mind.assigned_role == "Archpriest")
 			if(istype(W, /obj/item/reagent_containers/food/snacks/grown/apple))
 				if(!istype(get_area(user), /area/rogue/indoors/town/church/chapel))
 					to_chat(user, span_warning("I need to do this in the chapel."))
@@ -1309,7 +1308,7 @@
 	if(!L || !message)
 		return FALSE
 	var/message2recognize = sanitize_hear_message(message)
-	if(findtext(message2recognize, "zizo"))
+	if(findtext(message2recognize, "levishth"))
 		L.add_stress(/datum/stressevent/psycurse)
 		L.adjust_fire_stacks(100)
 		L.IgniteMob()

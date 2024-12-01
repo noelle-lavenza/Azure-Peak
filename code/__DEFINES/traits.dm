@@ -27,7 +27,7 @@
 #define TRAIT_CYCLOPS_RIGHT "Cyclops (Right)" //poked right eye
 #define TRAIT_RETARD_ANATOMY "Inhumen Anatomy" //can't wear hats and shoes
 #define TRAIT_NASTY_EATER "Inhumen Digestion" //can eat rotten food, organs, poison berries, and drink murky water
-#define TRAIT_WILD_EATER "Beastly Digestion" //can eat raw and rotten food and drink murky water +HS EDIT:Poison berries too
+#define TRAIT_WILD_EATER "Beastly Digestion" //can eat raw and rotten food and drink murky water +DK EDIT:organs too, no longer protects from berry poison
 #define TRAIT_NOFALLDAMAGE1 "Minor fall damage immunity"
 #define TRAIT_MISSING_NOSE "Missing Nose" //halved stamina regeneration
 #define TRAIT_DISFIGURED "Disfigured"
@@ -41,6 +41,7 @@
 #define TRAIT_SEEDKNOW "Seed Knower"
 #define TRAIT_GOODRUNNER "Good Runner"
 #define TRAIT_TINY "Tiny"
+#define TRAIT_SEESPIRITS "Spectral Sight"
 // ROGUEspecialTRAITS (description when rmb skills button)
 #define TRAIT_CIVILIZEDBARBARIAN "Tavern Brawler"
 #define TRAIT_COMICSANS "Annoying Face"
@@ -101,6 +102,7 @@
 #define TRAIT_LEPROSY "Leprosy"
 #define TRAIT_NUDE_SLEEPER "Picky Sleeper"
 #define TRAIT_ENDOWMENT "Enchanted Endowment" // should apply +3 CON -2 END -1 SPD, restricts most armor and using bows/crossbows, slows getting up.
+#define TRAIT_ENDOWMENTLITE "Natural Endowment" // no drawback version.
 
 // PATRON CURSE TRAITS
 #define TRAIT_CURSE "Curse" //source
@@ -118,6 +120,10 @@
 #define TRAIT_MATTHIOS_CURSE "Matthios' Curse"
 #define TRAIT_BAOTHA_CURSE "Baotha's Curse"
 #define TRAIT_NYMPHO_CURSE "Nympho Curse"
+
+//STONEHEDGE TRAITS
+#define TRAIT_USEMAGICITEM "Use Magic Item"
+#define TRAIT_FEINT_IMMUNITY "Unfeintable"
 
 GLOBAL_LIST_INIT(roguetraits, list(
 	TRAIT_LEPROSY = span_necrosis("I'm a disgusting leper..."),
@@ -195,7 +201,6 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	TRAIT_FIENDKISS = "When I cast projectile magic, the fiend also hurls a fire bolt at the same location.", // Hearthstone change
 	TRAIT_CHARGER = "I can charge into people like a ram.", // Hearthstone change
 	TRAIT_ARTIFICER = "I can use gems to improve items.", // Hearthstone change
-
 	TRAIT_BOG_TREKKING = "Expert in navigating these lands.", // Hearthstone change
 	TRAIT_GOODRUNNER = span_info("I can run without breaking a sweat!"),
 	TRAIT_NUDE_SLEEPER = span_warning("I can't fall asleep unless I'm nude and in bed."),
@@ -204,6 +209,9 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	TRAIT_NIGHT_VISION = span_info("Whether because of my species, my career choice, or by some boon of my patron, my eyes have adapted to see well in the dark."),
 	TRAIT_SUPER_NV = span_info("My ability to see in the dark extends further than that of most others, and I can consciously control how bright my surroundings appear to me."),
 	TRAIT_BLINDFIGHTING = span_info("I have an incredible sense of awareness, allowing me to dodge and parry attacks even when I can't see them coming, If i am in high awareness, I can even prevent sneak attacks."),
+	TRAIT_SEESPIRITS = span_necrosis("My eyes peer beyond the veil of life and death, allowing me to perceive spirits."),
+	TRAIT_USEMAGICITEM = span_info("I know my way around magic items by legit means or trickery."),
+	TRAIT_FEINT_IMMUNITY = span_info("Those fools can not feint me."),
 ))
 
 // trait accessor defines
@@ -288,7 +296,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_IGNOREDAMAGESLOWDOWN "ignoredamageslowdown"
 #define TRAIT_DEATHCOMA			"deathcoma" //Causes death-like unconsciousness
 #define TRAIT_FAKEDEATH			"fakedeath" //Makes the owner appear as dead to most forms of medical examination
-#define TRAIT_XENO_HOST			"xeno_host"	//Tracks whether we're gonna be a baby alien's mummy.
 #define TRAIT_STUNIMMUNE		"stun_immunity"
 #define TRAIT_STUNRESISTANCE    "stun_resistance"
 #define TRAIT_SLEEPIMMUNE		"sleep_immunity"

@@ -1,6 +1,8 @@
 //BE SPECIAL converted most to regular quirk traits for consistency in characters -- vide noir.
 //Will need rebalancing costs and stuff.
 
+//includes non special related, original traits aswell cuz we dumb.
+
 /datum/quirk/greaternightvision
 	name = "Darkvision"
 	desc = "I can easily see in the dark."
@@ -11,9 +13,9 @@
 	var/obj/item/organ/eyes/eyes = H.getorganslot(ORGAN_SLOT_EYES)
 	if(!eyes)
 		return
-	eyes.see_in_dark = 7
+	eyes.see_in_dark = 14 // Same as full darksight eyes
 	eyes.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	eyes.Insert(H)
+	H.update_sight()
 
 /datum/quirk/thickskin
 	name = "Tough"
@@ -27,13 +29,14 @@
 
 /datum/quirk/curseofcain
 	name = "Flawed Immortality"
-	desc = "I don't need to eat or breathe anymore... Is this normal?"
+	desc = "I don't need to eat, sleep or breathe anymore... Is this normal?"
 	value = 5
 
 /datum/quirk/curseofcain/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
 	ADD_TRAIT(H, TRAIT_NOHUNGER, QUIRK_TRAIT)
 	ADD_TRAIT(H, TRAIT_NOBREATH, QUIRK_TRAIT)
+	ADD_TRAIT(H, TRAIT_NOSLEEP, QUIRK_TRAIT)
 	H.change_stat("endurance", 1)
 
 /datum/quirk/deadened
@@ -173,6 +176,7 @@
 /datum/quirk/mtraining1/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
 	H.mind.adjust_skillrank_up_to(/datum/skill/misc/medicine, 3, TRUE)
+	H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/diagnose/secular)
 	H.mind.special_items["Patch Kit"] = /obj/item/storage/fancy/ifak
 	H.mind.special_items["Surgery Kit"] = /obj/item/storage/fancy/skit
 
@@ -287,6 +291,7 @@
 	H.grant_language(/datum/language/orcish)
 	H.grant_language(/datum/language/beast)
 	H.grant_language(/datum/language/draconic)
+	H.grant_language(/datum/language/faexin)
 
 /datum/quirk/civilizedbarbarian
 	name = "Tavern Brawler"
@@ -314,6 +319,7 @@
 	H.mind.adjust_skillrank_up_to(/datum/skill/craft/cooking, 3, TRUE)
 	H.mind.adjust_skillrank_up_to(/datum/skill/craft/engineering, 3, TRUE)
 	H.mind.adjust_skillrank_up_to(/datum/skill/craft/tanning, 3, TRUE)
+	H.mind.adjust_skillrank_up_to(/datum/skill/misc/sewing, 3, TRUE)
 	H.mind.adjust_skillrank_up_to(/datum/skill/misc/alchemy, 3, TRUE)
 	H.mind.adjust_skillrank_up_to(/datum/skill/craft/smelting, 3, TRUE) //lets be real you are taking this for smithing only.
 	H.mind.special_items["Hammer"] = /obj/item/rogueweapon/hammer/claw //works same as normal hammer. for smithing
@@ -343,14 +349,14 @@
 /datum/quirk/swift
 	name = "Speedster"
 	desc = "I am very athletic and fast. I can also dodge anything as long as I am not weighted down by medium or heavier armor."
-	value = 5
+	value = 4
 
 /datum/quirk/swift/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
 	ADD_TRAIT(H, TRAIT_DODGEEXPERT, QUIRK_TRAIT)
 	ADD_TRAIT(H, TRAIT_GOODRUNNER, QUIRK_TRAIT)
-	H.mind.adjust_skillrank_up_to(/datum/skill/misc/athletics, 5, TRUE)
-	H.change_stat("speed", 3)
+	H.mind.adjust_skillrank_up_to(/datum/skill/misc/athletics, 3, TRUE)
+	H.change_stat("speed", 1)
 
 /datum/quirk/gourmand
 	name = "Gourmand"
@@ -500,7 +506,6 @@
 	var/mob/living/carbon/human/H = quirk_holder
 	var/turf/location = get_spawn_turf_for_job("Pilgrim")
 	H.forceMove(location)
-	grant_lit_torch(H)
 
 /datum/quirk/atrophy
 	name = "Atrophy"
@@ -581,3 +586,22 @@
 /datum/quirk/pacifist/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
 	ADD_TRAIT(H, TRAIT_PACIFISM, QUIRK_TRAIT)
+
+
+/datum/quirk/endowed
+	name = "Endowment Curse"
+	desc = "I was cursed with endowment... This makes life hard."
+	value = -2
+
+/datum/quirk/endowed/on_spawn()
+	var/mob/living/carbon/human/H = quirk_holder
+	H.apply_status_effect(/datum/status_effect/debuff/bigboobs/permanent)
+
+/datum/quirk/endowedlite
+	name = "Naturally Endowed"
+	desc = "I have massive bits, they are natural and not emburdening like an enchanted endowment."
+	value = 0
+
+/datum/quirk/endowedlite/on_spawn()
+	var/mob/living/carbon/human/H = quirk_holder
+	H.apply_status_effect(/datum/status_effect/debuff/bigboobs/permanent/lite)

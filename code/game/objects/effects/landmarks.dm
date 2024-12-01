@@ -42,14 +42,12 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	if(delete_after_roundstart)
 		qdel(src)
 
-/obj/effect/landmark/start/New()
+/obj/effect/landmark/start/Initialize()
 	GLOB.start_landmarks_list += src
 	if(jobspawn_override.len)
 		for(var/X in jobspawn_override)
-			if(!GLOB.jobspawn_overrides[X])
-				GLOB.jobspawn_overrides[X] = list()
-			GLOB.jobspawn_overrides[X] += src
-	..()
+			LAZYADD(GLOB.jobspawn_overrides[X], src)
+	. = ..()
 	if(name != "start")
 		tag = "start*[name]"
 
@@ -64,7 +62,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	icon_state = "generic_event"
 
 /obj/effect/landmark/events/haunts/Initialize(mapload)
-	..()
+	. = ..()
 	GLOB.hauntstart += src
 	icon_state = ""
 
@@ -75,7 +73,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	var/aportalloc = "a"
 
 /obj/effect/landmark/events/testportal/Initialize(mapload)
-	..()
+	. = ..()
 //	GLOB.hauntstart += loc
 #ifdef TESTSERVER
 	var/obj/structure/fluff/testportal/T = new /obj/structure/fluff/testportal(loc)
@@ -241,7 +239,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	icon_state = "arrow"
 
 /obj/effect/landmark/start/priest
-	name = "Prophet"
+	name = "Archpriest"
 	icon_state = "arrow"
 
 /obj/effect/landmark/start/cleric
@@ -249,7 +247,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	icon_state = "arrow"
 
 /obj/effect/landmark/start/monk
-	name = "Priest"
+	name = "Monk"
 	icon_state = "arrow"
 
 /obj/effect/landmark/start/druid
@@ -420,6 +418,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 /obj/effect/landmark/start/adventurer
 	name = "Adventurer"
 	icon_state = "arrow"
+	delete_after_roundstart = FALSE // used by mob spawners
 
 //yrf
 
@@ -725,7 +724,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	icon_state = "wiznerd_spawn"
 
 /obj/effect/landmark/start/wizard/Initialize()
-	..()
+	. = ..()
 	GLOB.wizardstart += loc
 
 /obj/effect/landmark/start/nukeop
@@ -734,7 +733,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	icon_state = "snukeop_spawn"
 
 /obj/effect/landmark/start/nukeop/Initialize()
-	..()
+	. = ..()
 	GLOB.nukeop_start += loc
 
 /obj/effect/landmark/start/bandit
@@ -743,7 +742,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	icon_state = "arrow"
 
 /obj/effect/landmark/start/bandit/Initialize()
-	..()
+	. = ..()
 	GLOB.bandit_starts += loc
 
 
@@ -753,7 +752,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	icon_state = "arrow"
 
 /obj/effect/landmark/start/delf/Initialize()
-	..()
+	. = ..()
 	GLOB.delf_starts += loc
 
 
@@ -763,7 +762,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	icon_state = "snukeop_leader_spawn"
 
 /obj/effect/landmark/start/nukeop_leader/Initialize()
-	..()
+	. = ..()
 	GLOB.nukeop_leader_start += loc
 
 // Must be immediate because players will
@@ -774,14 +773,14 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	name = "New Player"
 
 /obj/effect/landmark/start/new_player/Initialize()
-	..()
+	. = ..()
 	GLOB.newplayer_start += loc
 
 /obj/effect/landmark/latejoin
 	name = "JoinLate"
 
 /obj/effect/landmark/latejoin/Initialize(mapload)
-	..()
+	. = ..()
 	SSjob.latejoin_trackers += loc
 	return INITIALIZE_HINT_QDEL
 
@@ -795,16 +794,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	name = "Observer-Start"
 	icon_state = "x"
 
-//xenos, morphs and nightmares spawn here
-/obj/effect/landmark/xeno_spawn
-	name = "xeno_spawn"
-	icon_state = "xeno_spawn"
-
-/obj/effect/landmark/xeno_spawn/Initialize(mapload)
-	..()
-	GLOB.xeno_spawn += loc
-	return INITIALIZE_HINT_QDEL
-
 //objects with the stationloving component (nuke disk) respawn here.
 //also blobs that have their spawn forcemoved (running out of time when picking their spawn spot), santa and respawning devils
 /obj/effect/landmark/blobstart
@@ -812,7 +801,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	icon_state = "blob_start"
 
 /obj/effect/landmark/blobstart/Initialize(mapload)
-	..()
+	. = ..()
 	GLOB.blobstart += loc
 	return INITIALIZE_HINT_QDEL
 
@@ -822,7 +811,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	icon_state = "secequipment"
 
 /obj/effect/landmark/secequipment/Initialize(mapload)
-	..()
+	. = ..()
 	GLOB.secequipment += loc
 	return INITIALIZE_HINT_QDEL
 
@@ -832,7 +821,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	icon_state = "prisonwarp"
 
 /obj/effect/landmark/prisonwarp/Initialize(mapload)
-	..()
+	. = ..()
 	GLOB.prisonwarp += loc
 	return INITIALIZE_HINT_QDEL
 
@@ -841,7 +830,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	icon_state = "ert_spawn"
 
 /obj/effect/landmark/ert_spawn/Initialize(mapload)
-	..()
+	. = ..()
 	GLOB.emergencyresponseteamspawn += loc
 	return INITIALIZE_HINT_QDEL
 
@@ -851,7 +840,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	icon_state = "holding_facility"
 
 /obj/effect/landmark/holding_facility/Initialize(mapload)
-	..()
+	. = ..()
 	GLOB.holdingfacility += loc
 	return INITIALIZE_HINT_QDEL
 
@@ -860,7 +849,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	icon_state = "tdome_observer"
 
 /obj/effect/landmark/thunderdome/observe/Initialize(mapload)
-	..()
+	. = ..()
 	GLOB.tdomeobserve += loc
 	return INITIALIZE_HINT_QDEL
 
@@ -869,7 +858,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	icon_state = "tdome_t1"
 
 /obj/effect/landmark/thunderdome/one/Initialize(mapload)
-	..()
+	. = ..()
 	GLOB.tdome1	+= loc
 	return INITIALIZE_HINT_QDEL
 
@@ -878,7 +867,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	icon_state = "tdome_t2"
 
 /obj/effect/landmark/thunderdome/two/Initialize(mapload)
-	..()
+	. = ..()
 	GLOB.tdome2 += loc
 	return INITIALIZE_HINT_QDEL
 
@@ -887,7 +876,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	icon_state = "tdome_admin"
 
 /obj/effect/landmark/thunderdome/admin/Initialize(mapload)
-	..()
+	. = ..()
 	GLOB.tdomeadmin += loc
 	return INITIALIZE_HINT_QDEL
 
@@ -898,8 +887,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	layer = HIGH_LANDMARK_LAYER
 
 
-/obj/effect/landmark/event_spawn/New()
-	..()
+/obj/effect/landmark/event_spawn/Initialize()
+	. = ..()
 	GLOB.generic_event_spawns += src
 
 /obj/effect/landmark/event_spawn/Destroy()
@@ -909,9 +898,9 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 /obj/effect/landmark/ruin
 	var/datum/map_template/ruin/ruin_template
 
-/obj/effect/landmark/ruin/New(loc, my_ruin_template)
+/obj/effect/landmark/ruin/Initialize(ml, my_ruin_template)
 	name = "ruin_[GLOB.ruin_landmarks.len + 1]"
-	..(loc)
+	. = ..()
 	ruin_template = my_ruin_template
 	GLOB.ruin_landmarks |= src
 
@@ -978,7 +967,7 @@ GLOBAL_LIST_EMPTY(travel_spawn_points)
 		return point.loc
 	return null
 
-/proc/create_travel_tiles(var/atom/location, travel_id, travel_goes_to_id, required_trait, tile_path)
+/proc/create_travel_tiles(atom/location, travel_id, travel_goes_to_id, required_trait, tile_path)
 	for(var/obj/effect/landmark/travel_tile_location/landmark as anything in GLOB.travel_tile_locations)
 		if(get_dist(location, landmark) > 5)
 			continue

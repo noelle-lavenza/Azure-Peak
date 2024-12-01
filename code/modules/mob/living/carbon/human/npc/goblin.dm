@@ -200,6 +200,7 @@
 		OFFSET_NECK_F = list(0,-5), OFFSET_MOUTH_F = list(0,-5), OFFSET_BUTT = list(0,-4), OFFSET_PANTS_F = list(0,0), \
 		OFFSET_SHIRT_F = list(0,0), OFFSET_ARMOR_F = list(0,0), OFFSET_UNDIES = list(0,0), OFFSET_UNDIES_F = list(0,0), \
 		)
+	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	var/raceicon = "goblin"
 	fixed_mut_color = "e8b59b"
 	custom_clothes = TRUE
@@ -262,6 +263,10 @@
 		body_overlay = mutable_appearance(icon, "[wear_armor.item_state]", -ARMOR_LAYER)
 		if(body_overlay)
 			standing += body_overlay
+	if(wear_pants)
+		body_overlay = mutable_appearance(icon, "[wear_pants.item_state]", -ARMOR_LAYER)
+		if(body_overlay)
+			standing += body_overlay
 	if(head)
 		body_overlay = mutable_appearance(icon, "[head.item_state]", -ARMOR_LAYER)
 		if(body_overlay)
@@ -273,6 +278,8 @@
 
 /mob/living/carbon/human/species/goblin/update_inv_head()
 	update_wearable()
+/mob/living/carbon/human/species/goblin/update_inv_pants()
+  	update_wearable()
 /mob/living/carbon/human/species/goblin/update_inv_armor()
 	update_wearable()
 
@@ -283,9 +290,7 @@
 	if(prob(50))
 		gender = FEMALE
 	. = ..()
-	spawn(10)
-		after_creation()
-	//addtimer(CALLBACK(src, PROC_REF(after_creation)), 10)
+	addtimer(CALLBACK(src, PROC_REF(after_creation)), 1 SECONDS)
 
 /mob/living/carbon/human/species/goblin/handle_combat()
 	if(mode == AI_HUNT)
@@ -319,6 +324,8 @@
 	ADD_TRAIT(src, TRAIT_NOMOOD, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_NOHUNGER, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_NOROGSTAM, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_HEAVYARMOR, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
 //	ADD_TRAIT(src, TRAIT_NOBREATH, TRAIT_GENERIC)
 //	blue breathes underwater, need a new specific one for this maybe organ cheque
 //	ADD_TRAIT(src, TRAIT_TOXIMMUNE, TRAIT_GENERIC)
@@ -390,13 +397,13 @@
 	switch(loadout)
 		if(1) //tribal spear
 			r_hand = /obj/item/rogueweapon/spear/stone
-			armor = /obj/item/clothing/suit/roguetown/armor/leather/hide/goblin
+			pants = /obj/item/clothing/under/roguetown/loincloth/goblinloin
 		if(2) //tribal axe
 			r_hand = /obj/item/rogueweapon/stoneaxe
-			armor = /obj/item/clothing/suit/roguetown/armor/leather/hide/goblin
+			pants = /obj/item/clothing/under/roguetown/loincloth/goblinloin
 		if(3) //tribal club
 			r_hand = /obj/item/rogueweapon/mace/woodclub
-			armor = /obj/item/clothing/suit/roguetown/armor/leather/hide/goblin
+			pants = /obj/item/clothing/under/roguetown/loincloth/goblinloin
 			if(prob(10))
 				head = /obj/item/clothing/head/roguetown/helmet/leather/goblin
 		if(4) //lightly armored sword/flail/daggers
@@ -410,6 +417,7 @@
 				r_hand = /obj/item/rogueweapon/huntingknife/stoneknife
 				l_hand = /obj/item/rogueweapon/huntingknife/stoneknife
 			armor = /obj/item/clothing/suit/roguetown/armor/leather/goblin
+			pants = /obj/item/clothing/under/roguetown/loincloth/goblinloin
 			if(prob(80))
 				head = /obj/item/clothing/head/roguetown/helmet/leather/goblin
 		if(5) //heavy armored sword/flail/shields
@@ -428,10 +436,11 @@
 			if(prob(20))
 				r_hand = /obj/item/rogueweapon/flail
 			l_hand = /obj/item/rogueweapon/shield/wood
+			pants = /obj/item/clothing/under/roguetown/loincloth/goblinloin
 		if(6) //tribal club with rope for lewd
 			r_hand = /obj/item/rogueweapon/mace/woodclub
 			l_hand = /obj/item/rope
-			armor = /obj/item/clothing/suit/roguetown/armor/leather/hide/goblin
+			//pants = /obj/item/clothing/under/roguetown/loincloth/goblinloin //lewd goblins don't need lioncloths i guess
 			H.seeksfuck = TRUE
 
 
@@ -506,9 +515,7 @@
 		return
 	spawning = TRUE
 	update_icon()
-	spawn(2 SECONDS)
-		creategob()
-	//addtimer(CALLBACK(src, PROC_REF(creategob)), 4 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(creategob)), 2 SECONDS)
 
 /obj/structure/gob_portal/Destroy()
 	soundloop.stop()

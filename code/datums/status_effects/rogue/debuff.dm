@@ -70,12 +70,12 @@
 /atom/movable/screen/alert/status_effect/debuff/stealthcd
 	name = "Stealth Broken"
 	desc = "I've either been found or recently dealt a sneak attack and can't sneak again for a short while"
-	icon = 'modular_stonehedge/icons/mob/screen_alert.dmi'
+	icon = 'modular_stonehedge/licensed-eaglephntm/icons/mob/screen_alert.dmi'
 	icon_state = "stealthcd"
 
 /datum/status_effect/debuff/stealthcd/on_apply()
 	if(owner.mind)
-		duration = duration - ((owner.mind.get_skill_level(/datum/skill/misc/sneaking)) SECONDS)
+		duration = duration - ((owner.mind.get_skill_level(/datum/skill/misc/sneaking)) SECONDS * 2)
 	if(owner.m_intent == MOVE_INTENT_SNEAK)
 		owner.toggle_rogmove_intent(MOVE_INTENT_WALK)
 		owner.update_sneak_invis()
@@ -239,6 +239,19 @@
 	effectedstats = list("fortune" = -3)
 	duration = 20 MINUTES
 
+/datum/status_effect/debuff/shame
+	id = "Ashamed"
+	alert_type = /atom/movable/screen/alert/status_effect/debuff/shame
+	effectedstats = list("fortune" = -1, "intelligence" = -1)
+	duration = 5 MINUTES
+
+/atom/movable/screen/alert/status_effect/debuff/shame
+	name = "Ashamed"
+	desc = "I feel really fucking stupid right now..."
+
+/datum/status_effect/debuff/shame/on_apply()
+	owner.add_stress(/datum/stressevent/shitself)
+
 /atom/movable/screen/alert/status_effect/debuff/devitalised
 	name = "Devitalised"
 	desc = "Something has been taken from me, and it will take time to recover."
@@ -345,26 +358,45 @@
 /datum/status_effect/debuff/bigboobs
 	id = "bigboobs"
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/bigboobs
-	examine_text = span_notice("They have massive GOODS!")
+	examine_text = span_notice("They have massive MAGICAL GOODS!")
 	effectedstats = list("constitution" = 3,"endurance" = -2, "speed" = -1)
 	duration = 10 MINUTES
 	var/initialpenis
 	var/initialbutt
 	var/initialball
 	var/initialbreasts
+	var/nodrawback = FALSE
+
+/datum/status_effect/debuff/bigboobs/permanent
+	duration = -1 //used for quirk
+
+/datum/status_effect/debuff/bigboobs/permanent/lite
+	alert_type = /atom/movable/screen/alert/status_effect/debuff/bigboobslite
+	examine_text = span_notice("They have massive GOODS!")
+	effectedstats = list("constitution" = 2,"endurance" = -1, "speed" = -1)
+	nodrawback = TRUE
 
 /atom/movable/screen/alert/status_effect/debuff/bigboobs
 	name = "Enchanted Endowment" //was gonna name it a curse but it isn't a technically one.
 	desc = "They feel as heavy as gold and are massive... My back hurts."
-	icon = 'modular_stonehedge/icons/mob/screen_alert.dmi'
+	icon = 'modular_stonehedge/licensed-eaglephntm/icons/mob/screen_alert.dmi'
 	icon_state = "bigboobs"
+
+/atom/movable/screen/alert/status_effect/debuff/bigboobslite
+	name = "Natural Endowment"
+	desc = "I got unusually large, natural bits, they aren't as heavy as an enchanted one thankfully."
+	icon = 'modular_stonehedge/licensed-eaglephntm/icons/mob/screen_alert.dmi'
+	icon_state = "bigboobslite"
 
 /datum/status_effect/debuff/bigboobs/on_apply()
 	. = ..()
 	var/mob/living/carbon/human/species/user = owner
 	if(!user)
 		return
-	ADD_TRAIT(user, TRAIT_ENDOWMENT, id)
+	if(nodrawback)
+		ADD_TRAIT(user, TRAIT_ENDOWMENTLITE, id)
+	else
+		ADD_TRAIT(user, TRAIT_ENDOWMENT, id)
 	to_chat(user, span_warning("Gah! my [user.gender == FEMALE ? "TITS" : "JUNK"] expand to impossible sizes!"))
 	//max them out.
 	for(var/obj/item/organ/forgan as anything in user.internal_organs) //as anything cause i either do this or use for() twice which is i guess worse.

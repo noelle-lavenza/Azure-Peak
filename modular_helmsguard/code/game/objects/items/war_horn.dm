@@ -2,7 +2,7 @@
 /obj/item/war_horn
 	name = "generic war horn"
 	desc = "Used to coordiante troops in the field."
-	icon = 'modular_helmsguard/icons/obj/items/warhorns.dmi'
+	icon = 'modular_helmsguard/licensed-feralope/icons/obj/items/warhorns.dmi'
 	icon_state = "humanhorn"
 	slot_flags = ITEM_SLOT_HIP|ITEM_SLOT_NECK
 	w_class = WEIGHT_CLASS_NORMAL
@@ -30,6 +30,9 @@
 	farrallysound = 'modular_helmsguard/sound/items/horns/h_rally_distant.ogg'
 	farholdsound = 'modular_helmsguard/sound/items/horns/h_hold_distant.ogg'
 	farchargesound = 'modular_helmsguard/sound/items/horns/h_charge_distant.ogg'
+
+/obj/item/war_horn/human/elf
+	name = "elven war horn"
 
 /obj/item/war_horn/orc
 	name = "Orcish war horn"

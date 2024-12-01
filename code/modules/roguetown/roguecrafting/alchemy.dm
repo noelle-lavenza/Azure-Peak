@@ -28,13 +28,13 @@
 /datum/crafting_recipe/roguetown/alchemy/puremoon
 	name = "Purest Moondust"
 	result = list(/obj/item/reagent_containers/powder/moondust/purest)
-	reqs = list(/obj/item/reagent_containers/powder/moondust, /obj/item/reagent_containers/food/snacks/grown/rogue/pipeweeddry = 1, /datum/reagent/berrypoison = 5)
+	reqs = list(/obj/item/reagent_containers/powder/moondust, /obj/item/reagent_containers/food/snacks/grown/rogue/pipeweeddry = 1, /datum/reagent/toxin/berrypoison = 5)
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/alchemy/spice
 	name = "Spice Melange"
 	result = list(/obj/item/reagent_containers/powder/spice)
-	reqs = list(/obj/item/ash = 1, /obj/item/reagent_containers/food/snacks/grown/rogue/sweetleafdry = 1, /datum/reagent/berrypoison = 5)
+	reqs = list(/obj/item/ash = 1, /obj/item/reagent_containers/food/snacks/grown/rogue/sweetleafdry = 1, /datum/reagent/toxin/berrypoison = 5)
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/alchemy/salt
@@ -204,6 +204,20 @@
 	reqs = list(
 		/obj/item/natural/stone = 1,
 		/obj/item/natural/dirtclod = 1)
+	craftdiff = 1
+	verbage_simple = "forge"
+
+/datum/crafting_recipe/roguetown/alchemy/glassbottles2
+	name = "3x glass bottles (Glass sheet)"
+	result = list(/obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/bottle)
+	reqs = list(/obj/item/ingot/glass)
+	craftdiff = 1
+	verbage_simple = "forge"
+
+/datum/crafting_recipe/roguetown/alchemy/glasssyringe
+	name = "Glass syringe (x3)"
+	result = list(/obj/item/reagent_containers/syringe,/obj/item/reagent_containers/syringe,/obj/item/reagent_containers/syringe)
+	reqs = list(/obj/item/ingot/glass)
 	craftdiff = 1
 	verbage_simple = "forge"
 
@@ -528,7 +542,7 @@
 		has_cap = FALSE
 		icon_state = "[icon_state]_nocap"  // Update icon state for no cap
 		to_chat(user, span_notice("You thumb off the cork from [src]."))
-		playsound(src, 'modular/Smoker/sound/corkpop.ogg', 100, TRUE)
+		playsound(src, 'modular_stonehedge/licensed-death-rattler/Death-Rattler/sound/corkpop.ogg', 100, TRUE)
 	else
 		to_chat(user, span_warning("[src] doesn't have a cork."))
 
@@ -551,7 +565,7 @@
 	reagents.maximum_volume = 0  // Makes them useless afterwards
 	reagents.flags = NONE  // Ensure reagents are deactivated
 	update_icon()
-	playsound(src, 'modular/Smoker/sound/chug.ogg', 100, TRUE)
+	playsound(src, 'modular_stonehedge/licensed-death-rattler/Death-Rattler/sound/chug.ogg', 100, TRUE)
 	return TRUE
 
 /obj/item/reagent_containers/hypospray/medipen/sealbottle/attack(mob/user)
@@ -579,7 +593,7 @@
 		has_cap = FALSE
 		icon_state = "[icon_state]_nocap"  // Update icon state for no cap
 		to_chat(user, span_notice("You bite the cap off [src] and spit it out."))
-		playsound(src, 'modular/Smoker/sound/capoff.ogg', 100, TRUE)
+		playsound(src, 'modular_stonehedge/licensed-death-rattler/Death-Rattler/sound/capoff.ogg', 100, TRUE)
 	else
 		to_chat(user, span_warning("[src] doesn't have a cap."))
 
@@ -602,7 +616,7 @@
 	reagents.maximum_volume = 0  // Makes them useless afterwards
 	reagents.flags = NONE  // Ensure reagents are deactivated
 	update_icon()
-	playsound(src, 'modular/Smoker/sound/inject.ogg', 100, TRUE)
+	playsound(src, 'modular_stonehedge/licensed-death-rattler/Death-Rattler/sound/inject.ogg', 100, TRUE)
 	return TRUE
 
 /obj/item/reagent_containers/hypospray/medipen/sty/attack(mob/user)
@@ -687,11 +701,11 @@
 	var/mob/living/carbon/human/H = M
 	var/obj/item/bodypart/affecting = H.get_bodypart(check_zone(user.zone_selected))
 	if (!affecting) return
-	if (affecting.bandage) 
+	if (affecting.bandage)
 		to_chat(user, "There is already a bandage.")
 		return
 	var/used_time = 100
-	if (H.mind) 
+	if (H.mind)
 		used_time -= (H.mind.get_skill_level(/datum/skill/misc/medicine) * 10)
 	playsound(loc, 'sound/foley/bandage.ogg', 100, FALSE)
 	if (!do_mob(user, M, used_time)) return
@@ -699,7 +713,7 @@
 	user.dropItemToGround(src)
 	affecting.try_bandage(src)
 	H.update_damage_overlays()
-	
+
 	// Heal the specific body part every second while bandaged and manage wound pain and disabling effects
 	addtimer(CALLBACK(src, /proc/heal_and_manage_pain_disabling, H, affecting), 10, 1, TRUE)
 	if (M == user)
@@ -707,7 +721,7 @@
 	else
 		user.visible_message("You bandage [M]'s [affecting].")
 
-/proc/heal_and_manage_pain_disabling(var/mob/living/carbon/human/H, var/obj/item/bodypart/affecting)
+/proc/heal_and_manage_pain_disabling(mob/living/carbon/human/H, obj/item/bodypart/affecting)
 	if (!affecting) return
 	affecting.heal_wounds(0.5)
 	for (var/datum/wound/W in affecting.wounds)

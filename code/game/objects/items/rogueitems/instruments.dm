@@ -97,8 +97,9 @@
 			soundloop.start()
 		for(var/mob/living/carbon/human/L in viewers(7))
 			L.add_stress(stressevent)
-			var/datum/status_effect/buff/healing/musicalhealing/heal_effect = L.apply_status_effect(/datum/status_effect/buff/healing/musicalhealing)
-			heal_effect.healing_on_tick = healthbonus
+			if(L.mind)
+				var/datum/status_effect/buff/healing/musicalhealing/heal_effect = L.apply_status_effect(/datum/status_effect/buff/healing/musicalhealing)
+				heal_effect.healing_on_tick = healthbonus
 	else
 		playing = FALSE
 		soundloop.stop()
@@ -154,7 +155,10 @@
 	"Tip Thine Tankard" = 'sound/music/instruments/lute (4).ogg',
 	"A Reed On the Wind" = 'sound/music/instruments/lute (5).ogg',
 	"Jests On Steel Ears" = 'sound/music/instruments/lute (6).ogg',
-	"Merchant in the Mire" = 'sound/music/instruments/lute (7).ogg')
+	"Merchant in the Mire" = 'sound/music/instruments/lute (7).ogg',
+	"The Power" = 'modular_stonehedge/sound/music/instruments/lute (8).ogg',
+	"Bard Dance" = 'modular_stonehedge/sound/music/instruments/lute (9).ogg',
+	"Old Time Battles" = 'modular_stonehedge/sound/music/instruments/lute (10).ogg')
 
 /obj/item/rogue/instrument/accord
 	name = "accordion"
@@ -201,7 +205,10 @@
 	"Rous in the Cellar" = 'sound/music/instruments/flute (3).ogg',
 	"Her Boots, So Incandescent" = 'sound/music/instruments/flute (4).ogg',
 	"Moondust Minx" = 'sound/music/instruments/flute (5).ogg',
-	"Quest to the Ends" = 'sound/music/instruments/flute (6).ogg',)
+	"Quest to the Ends" = 'sound/music/instruments/flute (6).ogg',
+	"The Power" = 'modular_stonehedge/sound/music/instruments/flute (7).ogg',
+	"Bard Dance" = 'modular_stonehedge/sound/music/instruments/flute (8).ogg',
+	"Old Time Battles" = 'modular_stonehedge/sound/music/instruments/flute (9).ogg')
 //	"Spit Shine" = 'sound/music/instruments/flute (7).ogg')  Doesnt exist on HS
 
 /obj/item/rogue/instrument/drum

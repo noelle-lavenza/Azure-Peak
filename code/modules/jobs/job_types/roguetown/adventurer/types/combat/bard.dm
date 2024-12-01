@@ -47,7 +47,7 @@
 			beltr = /obj/item/rogueweapon/huntingknife/idagger
 			H.change_stat("intelligence", 1)
 			H.change_stat("perception", 2)
-			H.change_stat("endurance", 1)
+			H.change_stat("endurance", 2)
 			H.change_stat("speed", 2)
 		if("Skald")
 			H.set_blindness(0)
@@ -81,11 +81,12 @@
 			beltl = /obj/item/storage/belt/rogue/pouch/coins/mid
 			l_hand = /obj/item/rogueweapon/sword/iron
 			H.change_stat("constitution", 2)
-			H.change_stat("strength", 1)
+			H.change_stat("strength", 2)
 			H.change_stat("speed", 1)
+			H.change_stat("endurance", 1)
 		if("Arcanist")
 			H.set_blindness(0)
-			to_chat(H, span_warning("Some bards are can craft musical sorceries, so it makes sense some pick up actual ones. Perhaps not as good as the real deal, of course."))
+			to_chat(H, span_warning("Many bards can craft musical sorceries, so it makes sense some pick up traditional sorcery. Not quite as good as the real deal, of course."))
 			H.mind.adjust_skillrank_up_to(/datum/skill/combat/wrestling, 2, TRUE)
 			H.mind.adjust_skillrank_up_to(/datum/skill/combat/unarmed, 2, TRUE)
 			H.mind.adjust_skillrank_up_to(/datum/skill/misc/athletics, 2, TRUE)
@@ -113,7 +114,7 @@
 			backl = /obj/item/storage/backpack/rogue/satchel
 			beltl = /obj/item/storage/belt/rogue/pouch/coins/poor
 			beltr = /obj/item/rogueweapon/huntingknife/idagger/steel
-			H.change_stat("intelligence", 1)
+			H.change_stat("intelligence", 2)
 			H.change_stat("perception", 2)
 			H.change_stat("endurance", 1)
 			H.change_stat("speed", 2)
@@ -165,6 +166,7 @@
 	ADD_TRAIT(H, TRAIT_EMPATH, TRAIT_GENERIC)
 	ADD_TRAIT(H, TRAIT_DODGEEXPERT, TRAIT_GENERIC)	//You have speed, use it. What musucian plays with cumbersome armor anyway?
 	ADD_TRAIT(H, TRAIT_GOODLOVER, TRAIT_GENERIC)
+	ADD_TRAIT(H, TRAIT_USEMAGICITEM, TRAIT_GENERIC)
 	if(isseelie(H))
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/seelie_dust)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/summon_rat)

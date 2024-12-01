@@ -107,14 +107,15 @@
 			H.change_stat("endurance", 2)
 			H.change_stat("speed", 1)
 			ADD_TRAIT(H, TRAIT_DODGEEXPERT, TRAIT_GENERIC)
+			ADD_TRAIT(H, TRAIT_KNEESTINGER_IMMUNITY, TRAIT_GENERIC)
 			H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/diagnose/secular)
 			H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/conjure_glowshroom)
 		// HEARTHSTONE ADD: cloistered cleric subclass (lighter armored and equipped)
 		if("Temple Devout")
-			// Devout start without the typical cleric medium/heavy armor shtick and without much in the way of weapons or skills to use them.
+			// Devout start without the typical cleric heavy armor shtick and without much in the way of weapons or skills to use them.
 			// They're better with miracles and regenerate devotion passively like the Priest does, however.
 			H.set_blindness(0)
-			to_chat(H, span_warning("You are a cloistered cleric, a devout traveller whom has engressed into distant lands to spread the word of your chosen Patron. Having secluded yourself for many years, your body has suffered... But you have gained great insight as a result!"))
+			to_chat(H, span_warning("You are a Temple cleric, a devout traveller whom has engressed into distant lands to spread the word of your chosen Patron. Having secluded yourself for many years, your body has suffered... But you have gained great insight as a result!"))
 			H.mind.adjust_skillrank_up_to(/datum/skill/magic/holy, 5, TRUE)
 			H.mind.adjust_skillrank_up_to(/datum/skill/craft/cooking, 3, TRUE)
 			H.mind.adjust_skillrank_up_to(/datum/skill/misc/reading, 4, TRUE)
@@ -131,6 +132,7 @@
 			H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/guidance5e)
 			H.mind.AddSpell(new	/obj/effect/proc_holder/spell/targeted/churn)
 			H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/light5e)
+			ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
 		// HEARTHSTONE ADDITION END
 
 	armor = /obj/item/clothing/suit/roguetown/armor/plate/half/iron
@@ -152,7 +154,7 @@
 		cloak = /obj/item/clothing/cloak/raincloak/furcloak
 		shoes = /obj/item/clothing/shoes/roguetown/boots
 	// HEARTHSTONE ADD: cloistered devout custom outfits
-	else if (classchoice == "Cloistered Devout")
+	else if (classchoice == "Temple Devout")
 		// do the generic stuff first then replace it w/ patron specific things... if it exists
 		// for reference, cloistered devouts are lightly armored/unarmored but get patron-specific stuff (if applicable) and a devo regen
 		head = /obj/item/clothing/head/roguetown/roguehood/black
@@ -174,12 +176,6 @@
 				armor = /obj/item/clothing/suit/roguetown/shirt/robe/noc
 				pants = /obj/item/clothing/under/roguetown/tights/black
 				belt = /obj/item/storage/belt/rogue/leather/black
-				if (H.mind)
-					H.mind.adjust_skillrank_up_to(/datum/skill/magic/arcane, 1, TRUE)
-					H.mind.adjust_spellpoints(1)
-					H.verbs += list(/mob/living/carbon/human/proc/magicreport, /mob/living/carbon/human/proc/magiclearn)
-					H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
-
 			if(/datum/patron/divine/necra)
 				head = /obj/item/clothing/head/roguetown/necrahood
 				armor = /obj/item/clothing/suit/roguetown/shirt/robe/necra
@@ -197,14 +193,20 @@
 				armor = /obj/item/clothing/suit/roguetown/shirt/robe/psydonrobe
 			if(/datum/patron/divine/eora)
 				armor = /obj/item/clothing/suit/roguetown/shirt/robe/eora
+			if(/datum/patron/inhumen/graggar)
+				if(H.mind)
+					H.mind.adjust_skillrank_up_to(/datum/skill/magic/arcane, 1, TRUE)
+					H.mind.adjust_spellpoints(1)
 	// HEARTHSTONE ADDITION END
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
 	// HEARTHSTONE ADDITION: cloistered devout devo regen & tier buff
-	if (classchoice == "Cloistered Devout")
-		if(H.patron?.type == /datum/patron/divine/noc)
-			C.grant_spells_devout_noc(H)
-		else
-			C.grant_spells_devout(H)
+	if (classchoice == "Temple Devout")
+		C.grant_spells_devout(H)
+		H.mind.adjust_skillrank_up_to(/datum/skill/magic/arcane, 1, TRUE)
+		H.mind.adjust_spellpoints(1)
+		H.verbs += list(/mob/living/carbon/human/proc/magicreport, /mob/living/carbon/human/proc/magiclearn)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
+		ADD_TRAIT(H, TRAIT_USEMAGICITEM, TRAIT_GENERIC)
 	else
 		C.grant_spells_cleric(H)
 	// HEARTHSTONE ADDITION END

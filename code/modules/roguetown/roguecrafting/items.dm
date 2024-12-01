@@ -313,7 +313,7 @@
 	result = /obj/item/ammo_casing/caseless/rogue/arrow/poison
 	reqs = list(
 				/obj/item/ammo_casing/caseless/rogue/arrow = 1,
-				/datum/reagent/berrypoison = 5
+				/datum/reagent/toxin/berrypoison = 5
 				)
 	req_table = FALSE
 
@@ -331,7 +331,7 @@
 	result = /obj/item/ammo_casing/caseless/rogue/arrow/stone/poison
 	reqs = list(
 				/obj/item/ammo_casing/caseless/rogue/arrow/stone = 1,
-				/datum/reagent/berrypoison = 5
+				/datum/reagent/toxin/berrypoison = 5
 				)
 	req_table = FALSE
 
@@ -349,7 +349,7 @@
 	name = "poisoned bolt"
 	result = /obj/item/ammo_casing/caseless/rogue/bolt/poison
 	reqs = list(/obj/item/ammo_casing/caseless/rogue/bolt = 1,
-				/datum/reagent/berrypoison = 5)
+				/datum/reagent/toxin/berrypoison = 5)
 
 	req_table = TRUE
 
@@ -364,7 +364,7 @@
 				)
 	reqs = list(
 				/obj/item/ammo_casing/caseless/rogue/arrow = 5,
-				/datum/reagent/berrypoison = 25
+				/datum/reagent/toxin/berrypoison = 25
 				)
 
 	req_table = FALSE
@@ -415,7 +415,7 @@
 	name = "poisoned bolts (x5)"
 	result = list(/obj/item/ammo_casing/caseless/rogue/bolt/poison = 5)
 	reqs = list(/obj/item/ammo_casing/caseless/rogue/bolt = 5,
-				/datum/reagent/berrypoison = 25)
+				/datum/reagent/toxin/berrypoison = 25)
 
 	req_table = TRUE
 
@@ -430,7 +430,7 @@
 				)
 	reqs = list(
 				/obj/item/ammo_casing/caseless/rogue/arrow/stone = 5,
-				/datum/reagent/berrypoison = 25
+				/datum/reagent/toxin/berrypoison = 25
 				)
 
 	req_table = FALSE
@@ -816,26 +816,6 @@
 				/obj/item/natural/fibers = 3)
 	skillcraft = /datum/skill/magic/druidic
 	craftdiff = 2 // druids & dendor clerics can craft
-
-// --------- GLASS -----------
-
-/datum/crafting_recipe/roguetown/glassbottle
-	name = "Glass bottle (x2)"
-	reqs = list(/obj/item/ingot/glass)
-	result = list(/obj/item/reagent_containers/glass/bottle/rogue,/obj/item/reagent_containers/glass/bottle/rogue)
-	skillcraft = /datum/skill/craft/smelting
-	structurecraft = /obj/machinery/light/rogue/smelter
-	always_availible = FALSE
-	craftdiff = 1
-
-/datum/crafting_recipe/roguetown/glasssyringe
-	name = "Glass syringe (x3)"
-	reqs = list(/obj/item/ingot/glass)
-	result = list(/obj/item/reagent_containers/syringe,/obj/item/reagent_containers/syringe,/obj/item/reagent_containers/syringe)
-	skillcraft = /datum/skill/craft/smelting
-	structurecraft = /obj/machinery/light/rogue/smelter
-	always_availible = FALSE
-	craftdiff = 2 //small and more detailed in workings i guess.
 
 //gunmaking slop
 /datum/crafting_recipe/roguetown/firingpim

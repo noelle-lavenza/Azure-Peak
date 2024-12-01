@@ -23,12 +23,16 @@
 	user.sexcon.perform_sex_action(target, 4, 3, TRUE)
 	if(target.sexcon.check_active_ejaculation())
 		target.visible_message(span_love("[target] ejaculates into [user]'s mouth!"))
-		target.sexcon.cum_into(oral = TRUE)
+		target.sexcon.cum_into(girljuice = TRUE)
 
 /datum/sex_action/npc_cunnilingus/on_finish(mob/living/user, mob/living/target)
 	user.visible_message(span_warning("[user] stops licking [target]'s cunt ..."))
-	var/mob/living/simple_animal/hostile/retaliate/rogue/usermob = user
-	usermob.stoppedfucking(target)
+	if(issimple(user))
+		var/mob/living/simple_animal/hostile/retaliate/rogue/simpleuser = user
+		simpleuser.stoppedfucking(target)
+	else
+		var/mob/living/carbon/human/humanuser = user
+		humanuser.stoppedfucking(target)
 
 
 /datum/sex_action/npc_cunnilingus/is_finished(mob/living/user, mob/living/target)

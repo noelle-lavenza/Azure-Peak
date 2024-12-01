@@ -97,7 +97,7 @@
 
 	resistance_flags = FLAMMABLE
 
-/obj/item/bodypart/proc/adjust_marking_overlays(var/list/appearance_list)
+/obj/item/bodypart/proc/adjust_marking_overlays(list/appearance_list)
 	return
 
 /obj/item/bodypart/proc/get_specific_markings_overlays(list/specific_markings, aux = FALSE, mob/living/carbon/human/human_owner, override_color)
@@ -263,7 +263,7 @@
 		. |= BODYPART_LIFE_UPDATE_HEALTH
 
 /obj/item/bodypart/Initialize()
-	..()
+	. = ..()
 	update_HP()
 
 /obj/item/bodypart/proc/update_HP()
@@ -298,10 +298,6 @@
 
 	if(!brute && !burn && !stamina)
 		return FALSE
-
-	switch(animal_origin)
-		if(ALIEN_BODYPART,LARVA_BODYPART) //aliens take double burn //nothing can burn with so much snowflake code around
-			burn *= 2
 
 	//cap at maxdamage
 	if(brute_dam + brute > max_damage)
@@ -682,24 +678,10 @@
 	icon_state = "default_monkey_chest"
 	animal_origin = MONKEY_BODYPART
 
-/obj/item/bodypart/chest/alien
-	icon = 'icons/mob/animal_parts.dmi'
-	icon_state = "alien_chest"
-	dismemberable = 0
-	max_damage = 500
-	animal_origin = ALIEN_BODYPART
-
 /obj/item/bodypart/chest/devil
 	dismemberable = 0
 	max_damage = 5000
 	animal_origin = DEVIL_BODYPART
-
-/obj/item/bodypart/chest/larva
-	icon = 'icons/mob/animal_parts.dmi'
-	icon_state = "larva_chest"
-	dismemberable = 0
-	max_damage = 50
-	animal_origin = LARVA_BODYPART
 
 /obj/item/bodypart/l_arm
 	name = "left arm"
@@ -753,14 +735,6 @@
 	px_x = -5
 	px_y = -3
 
-/obj/item/bodypart/l_arm/alien
-	icon = 'icons/mob/animal_parts.dmi'
-	icon_state = "alien_l_arm"
-	px_x = 0
-	px_y = 0
-	dismemberable = 0
-	max_damage = 100
-	animal_origin = ALIEN_BODYPART
 
 /obj/item/bodypart/l_arm/devil
 	dismemberable = 0
@@ -819,15 +793,6 @@
 	px_x = 5
 	px_y = -3
 
-/obj/item/bodypart/r_arm/alien
-	icon = 'icons/mob/animal_parts.dmi'
-	icon_state = "alien_r_arm"
-	px_x = 0
-	px_y = 0
-	dismemberable = 0
-	max_damage = 100
-	animal_origin = ALIEN_BODYPART
-
 /obj/item/bodypart/r_arm/devil
 	dismemberable = 0
 	max_damage = 5000
@@ -874,15 +839,6 @@
 	icon_state = "default_monkey_l_leg"
 	animal_origin = MONKEY_BODYPART
 	px_y = 4
-
-/obj/item/bodypart/l_leg/alien
-	icon = 'icons/mob/animal_parts.dmi'
-	icon_state = "alien_l_leg"
-	px_x = 0
-	px_y = 0
-	dismemberable = 0
-	max_damage = 100
-	animal_origin = ALIEN_BODYPART
 
 /obj/item/bodypart/l_leg/devil
 	dismemberable = 0
@@ -932,14 +888,6 @@
 	animal_origin = MONKEY_BODYPART
 	px_y = 4
 
-/obj/item/bodypart/r_leg/alien
-	icon = 'icons/mob/animal_parts.dmi'
-	icon_state = "alien_r_leg"
-	px_x = 0
-	px_y = 0
-	dismemberable = 0
-	max_damage = 100
-	animal_origin = ALIEN_BODYPART
 
 /obj/item/bodypart/r_leg/devil
 	dismemberable = 0

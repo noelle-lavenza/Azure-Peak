@@ -92,7 +92,7 @@
 /obj/item/organ/filling_organ/anus
 	//absorbs faster than womb, less capacity.
 	name = "anus"
-	icon = 'modular_stonehedge/icons/obj/surgery.dmi'
+	icon = 'modular_stonehedge/licensed-eaglephntm/icons/obj/surgery.dmi'
 	icon_state = "anus"
 	dropshrink = 0.5
 	visible_organ = TRUE
@@ -109,7 +109,7 @@
 
 /obj/item/organ/filling_organ/vagina
 	name = "vagina"
-	icon = 'modular_stonehedge/icons/obj/surgery.dmi'
+	icon = 'modular_stonehedge/licensed-eaglephntm/icons/obj/surgery.dmi'
 	icon_state = "vagina"
 	dropshrink = 0.5
 	visible_organ = TRUE
@@ -127,7 +127,7 @@
 
 /obj/item/organ/filling_organ/breasts
 	name = "breasts"
-	icon = 'modular_stonehedge/icons/obj/surgery.dmi'
+	icon = 'modular_stonehedge/licensed-eaglephntm/icons/obj/surgery.dmi'
 	icon_state = "breasts"
 	dropshrink = 0.8
 	visible_organ = TRUE
@@ -151,7 +151,7 @@
 
 /obj/item/organ/belly
 	name = "belly"
-	icon = 'modular_stonehedge/icons/obj/surgery.dmi'
+	icon = 'modular_stonehedge/licensed-eaglephntm/icons/obj/surgery.dmi'
 	icon_state = "belly"
 	visible_organ = TRUE
 	zone = BODY_ZONE_PRECISE_STOMACH
@@ -162,7 +162,7 @@
 
 /obj/item/organ/filling_organ/testicles
 	name = "testicles"
-	icon = 'modular_stonehedge/icons/obj/surgery.dmi'
+	icon = 'modular_stonehedge/licensed-eaglephntm/icons/obj/surgery.dmi'
 	icon_state = "testicles"
 	dropshrink = 0.5
 	visible_organ = TRUE
@@ -173,8 +173,9 @@
 	organ_size = DEFAULT_TESTICLES_SIZE
 	reagent_to_make = /datum/reagent/consumable/cum
 	refilling = TRUE
-	hungerhelp = FALSE //balls dont be dry if you starve
+	//hungerhelp = FALSE //balls dont be dry if you starve
 	reagent_generate_rate = 0.2
+	storage_per_size = 20 //2 times the normal since they have only 3 size options
 	organ_sizeable = TRUE
 	altnames = list("balls", "testicles", "testes", "orbs", "cum tanks", "seed tanks") //used in thought messages.
 	startsfilled = TRUE
@@ -190,9 +191,8 @@
 
 /obj/item/organ/butt
 	name = "butt"
-	icon = 'modular_stonehedge/icons/obj/surgery.dmi'
+	icon = 'modular_stonehedge/licensed-eaglephntm/icons/obj/surgery.dmi'
 	icon_state = "butt"
-	dropshrink = 0.5
 	visible_organ = TRUE
 	zone = BODY_ZONE_PRECISE_STOMACH
 	slot = ORGAN_SLOT_BUTT

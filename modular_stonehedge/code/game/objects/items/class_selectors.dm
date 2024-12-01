@@ -5,9 +5,15 @@
 	desc = "Activate to remember."
 	icon = 'icons/obj/library.dmi'
 	icon_state ="book1"
+	embedding = list("embedded_pain_multiplier" = 0, "embed_chance" = 0, "embedded_fall_chance" = 0)
 	var/datum/job/roguetown/intended_job
 	var/inventory_items = list()
 	var/classes = list()
+
+/obj/item/class_selector/Initialize()
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_NOEMBED, TRAIT_GENERIC)
 
 //guildmaster
 /obj/item/class_selector/veteran/attack_self(mob/living/carbon/human/H)
@@ -60,7 +66,8 @@
 			dressup(H, inventory_items)
 		if("Rogue")
 			H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/rogue_vanish)
-			inventory_items = list(/obj/item/storage/belt/rogue/pouch/coins/rich,
+			inventory_items = list(
+				/obj/item/clothing/neck/roguetown/bervor,
 				/obj/item/clothing/shoes/roguetown/boots/armor,
 				/obj/item/storage/belt/rogue/leather,
 				/obj/item/clothing/gloves/roguetown/chain,
@@ -70,8 +77,9 @@
 				/obj/item/quiver/Pbolts,
 				/obj/item/rogueweapon/sword/estoc,
 				/obj/item/lockpickring/mundane,
-				/obj/item/rogueweapon/huntingknife/idagger/steel/parrying = 1,
-				/obj/item/storage/keyring/veteran = 1
+				/obj/item/rogueweapon/huntingknife/idagger/steel/parrying,
+				/obj/item/storage/keyring/veteran,
+				/obj/item/storage/belt/rogue/pouch/coins/rich,
 			)
 			if(H.gender == FEMALE) //funny
 				inventory_items += /obj/item/clothing/suit/roguetown/armor/leather/studded/bikini
@@ -115,18 +123,18 @@
 			dressup(H, inventory_items)
 		if("Cleric")
 			inventory_items = list(
-				/obj/item/clothing/neck/roguetown/bervor,
 				/obj/item/clothing/suit/roguetown/armor/plate/scale,
-				/obj/item/clothing/suit/roguetown/armor/gambeson,
+				/obj/item/clothing/suit/roguetown/armor/chainmail,
 				/obj/item/clothing/under/roguetown/chainlegs,
+				/obj/item/clothing/gloves/roguetown/chain,
 				/obj/item/clothing/shoes/roguetown/boots/armor,
 				/obj/item/storage/belt/rogue/leather/black,
 				/obj/item/rogueweapon/mace/steel,
 				/obj/item/storage/belt/rogue/pouch/coins/rich,
 				/obj/item/storage/backpack/rogue/satchel,
 				/obj/item/rogueweapon/shield/wood,
-				/obj/item/rogueweapon/huntingknife/idagger/steel/parrying = 1,
-				/obj/item/storage/keyring/veteran = 1
+				/obj/item/rogueweapon/huntingknife/idagger/steel/parrying,
+				/obj/item/storage/keyring/veteran,
 			)
 			var/datum/devotion/C = new /datum/devotion(H, H.patron)
 			switch(H.patron?.type)
@@ -136,6 +144,10 @@
 					inventory_items += /obj/item/clothing/neck/roguetown/psicross/skull
 				if(/datum/patron/divine/noc)
 					inventory_items += /obj/item/clothing/neck/roguetown/psicross/noc
+					H.mind.adjust_skillrank_up_to(/datum/skill/magic/arcane, 2, TRUE)
+					H.mind.adjust_spellpoints(2)
+					H.verbs += list(/mob/living/carbon/human/proc/magicreport, /mob/living/carbon/human/proc/magiclearn)
+					H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
 				if(/datum/patron/divine/dendor)
 					inventory_items += /obj/item/clothing/neck/roguetown/psicross/dendor
 					H.mind.adjust_skillrank_up_to(/datum/skill/magic/druidic, 2, TRUE) // enough to craft druid mask, at least
@@ -145,10 +157,7 @@
 					inventory_items += /obj/item/clothing/neck/roguetown/psicross/pestra
 				if(/datum/patron/divine/eora) //Eora content from Stonekeep
 					inventory_items += /obj/item/clothing/neck/roguetown/psicross/eora
-			if(H.patron?.type == /datum/patron/divine/noc)
-				C.grant_spells_devout_noc(H)
-			else
-				C.grant_spells_devout(H)
+			C.grant_spells_cleric(H)
 			if(H.mind)
 				H.mind.adjust_skillrank_up_to(/datum/skill/combat/crossbows, 4, TRUE)
 				H.mind.adjust_skillrank_up_to(/datum/skill/combat/polearms, 2, TRUE)
@@ -182,4 +191,3 @@
 		var/spawneditem = new invitem(H.loc)
 		H.pickup_and_wear(spawneditem)
 	qdel(src)
-

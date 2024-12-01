@@ -250,6 +250,11 @@
 	volume = 100
 	extra_range = 3
 
+/datum/looping_sound/unholy
+	mid_sounds = list('sound/vo/mobs/ghost/whisper (1).ogg')
+	mid_length = 320
+	volume = 100
+	extra_range = 3
 
 /datum/looping_sound/invokeholy
 	mid_sounds = list('sound/magic/holycharging.ogg')
@@ -489,8 +494,7 @@
 	animname = "cut"
 	blade_class = BCLASS_CHOP
 	hitsound = "genslash"
-	penfactor = 230
-	damfactor = 40
+	penfactor = 80
 	candodge = TRUE
 	canparry = TRUE
 	miss_text = "slashes the air!"

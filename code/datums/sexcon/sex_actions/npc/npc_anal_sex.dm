@@ -2,6 +2,7 @@
 	name = "NPC Sodomize them"
 	stamina_cost = 0
 	check_same_tile = FALSE
+	require_grab = FALSE
 
 /datum/sex_action/npc_anal_sex/shows_on_menu(mob/living/user, mob/living/target)
 	return FALSE
@@ -37,8 +38,12 @@
 
 /datum/sex_action/npc_anal_sex/on_finish(mob/living/user, mob/living/target)
 	user.visible_message(span_warning("[user] gets off [target]."))
-	var/mob/living/simple_animal/hostile/retaliate/rogue/usermob = user
-	usermob.stoppedfucking(target)
+	if(issimple(user))
+		var/mob/living/simple_animal/hostile/retaliate/rogue/simpleuser = user
+		simpleuser.stoppedfucking(target)
+	else
+		var/mob/living/carbon/human/humanuser = user
+		humanuser.stoppedfucking(target)
 
 /datum/sex_action/npc_anal_sex/is_finished(mob/living/user, mob/living/target)
 	if(user.sexcon.finished_check())

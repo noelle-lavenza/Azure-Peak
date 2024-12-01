@@ -1,5 +1,5 @@
 
-/obj/item/reagent_containers/hypospray               ////// I absolutely hate this stupid retarded shit why the fuck is TG garbage even in this stupid fucking indian built codebase. fuck you seth. fuck you.
+/obj/item/reagent_containers/hypospray
 	name = "hypospray"
 	desc = ""
 	icon = 'icons/roguetown/items/surgery.dmi'
@@ -19,9 +19,9 @@
 
 /obj/item/reagent_containers/hypospray/attack(mob/living/M, mob/user)
 	if(has_cap)
-		to_chat(user, span_warning("[src] has a cap on! You need to remove it first."))
+		to_chat(user, span_warning("[src] has a cap on! I need to remove it first."))
+		playsound(src, 'modular_stonehedge/licensed-death-rattler/Death-Rattler/sound/inject.ogg')
 		return FALSE
-		playsound(src, 'modular/Smoker/sound/inject.ogg')
 	inject(M, user)
 
 ///Handles all injection checks, injection and logging.
@@ -143,7 +143,7 @@
 		has_cap = FALSE
 		icon_state = "sty_nocap"  // Update icon state
 		to_chat(user, span_notice("You remove the cap from [src]."))
-		playsound(user, 'modular/Smoker/sound/capoff.ogg')
+		playsound(user, 'modular_stonehedge/licensed-death-rattler/Death-Rattler/sound/capoff.ogg')
 	else
 		to_chat(user, span_warning("[src] doesn't have a cap."))
 		return FALSE

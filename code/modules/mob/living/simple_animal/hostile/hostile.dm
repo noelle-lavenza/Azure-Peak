@@ -228,7 +228,7 @@
 	return chosen_target
 
 // Please do not add one-off mob AIs here, but override this function for your mob
-/mob/living/simple_animal/hostile/CanAttack(atom/the_target, ignore_lying = TRUE)//Can we actually attack a possible target?
+/mob/living/simple_animal/hostile/CanAttack(atom/the_target, attack_lying = FALSE)//Can we actually attack a possible target?
 	if(isturf(the_target) || !the_target || the_target.type == /atom/movable/lighting_object) // bail out on invalids
 		return FALSE
 
@@ -239,9 +239,12 @@
 		if(M.name in friends)
 			return FALSE
 
+	if(attack_laying) //used for bosses etc.
+		attack_lying = TRUE
+
 	if(ishuman(the_target))
 		var/mob/living/carbon/human/th = the_target
-		if(ignore_lying && th.lying && !th.get_active_held_item()) //if is laying and holding nothing, and not in cmode. Ignore.
+		if(!attack_lying && th.lying && !th.get_active_held_item()) //if is laying and holding nothing, and not in cmode. Ignore.
 			if(prob(4) && th.has_quirk(/datum/quirk/monsterhunter) && erpable) //tiny chance to trigger abuss.
 				fuckcd = 0
 			return FALSE
@@ -343,6 +346,7 @@
 					MeleeAction(FALSE)
 				in_melee = FALSE //If we're just preparing to strike do not enter sidestep mode
 			return 1
+		LoseTarget() // Somehow we don't have a target now! Maybe OpenFire() or MeleeAction destroyed them?
 		return 0
 	else
 		if(ranged_ignores_vision && ranged_cooldown <= world.time) //we can't see our target... but we can fire at them!
@@ -350,19 +354,6 @@
 		Goto(target,move_to_delay,minimum_distance)
 		FindHidden()
 		return 1
-//	if(environment_smash)
-//		if(target.loc != null && get_dist(targets_from, target.loc) <= vision_range) //We can't see our target, but he's in our vision range still
-//			if(ranged_ignores_vision && ranged_cooldown <= world.time) //we can't see our target... but we can fire at them!
-//				OpenFire(target)
-//			if((environment_smash & ENVIRONMENT_SMASH_WALLS) || (environment_smash & ENVIRONMENT_SMASH_RWALLS)) //If we're capable of smashing through walls, forget about vision completely after finding our target
-//				Goto(target,move_to_delay,minimum_distance)
-//				FindHidden()
-//				return 1
-//			else
-//				if(FindHidden())
-//					return 1
-	LoseTarget()
-	return 0
 
 /mob/living/simple_animal/hostile/proc/Goto(target, delay, minimum_distance)
 	if(target == src.target)

@@ -133,7 +133,7 @@
 			return parse_zone(zone)
 		return affecting.name
 
-/mob/living/carbon/proc/find_used_grab_limb(mob/living/user, var/override_zone = null) //for finding the exact limb or inhand to grab
+/mob/living/carbon/proc/find_used_grab_limb(mob/living/user, override_zone = null) //for finding the exact limb or inhand to grab
 	var/used_limb = BODY_ZONE_CHEST
 	var/missing_nose = HAS_TRAIT(src, TRAIT_MISSING_NOSE)
 	var/obj/item/bodypart/affecting
@@ -225,6 +225,7 @@
 			else
 				user.used_intent.penfactor = initial(user.used_intent.penfactor)//Sanity check to make sure intent penfactor gets reset when the attack isn't a sneak attack.
 		apply_damage(statforce, I.damtype, affecting)
+		SEND_SIGNAL(I, COMSIG_APPLY_REAGENTS, user, affecting.owner)
 		if(I.damtype == BRUTE && affecting.status == BODYPART_ORGANIC)
 			if(prob(statforce))
 				I.add_mob_blood(src)
@@ -292,7 +293,7 @@
 		if(possible_len)
 			var/datum/surgery_step/done_step
 			if(possible_len > 1)
-				var/input = input(user, "Which surgery step do you want to perform?", "PESTRA", ) as null|anything in possible_steps
+				var/input = input(user, "Which surgery step do you want to perform?", "HERMEIR", ) as null|anything in possible_steps
 				if(input)
 					done_step = possible_steps[input]
 			else

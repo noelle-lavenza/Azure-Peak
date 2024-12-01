@@ -112,7 +112,7 @@
 		if(possible_len)
 			var/datum/surgery_step/done_step
 			if(possible_len > 1)
-				var/input = input(user, "Which surgery step do you want to perform?", "PESTRA", ) as null|anything in possible_steps
+				var/input = input(user, "Which surgery step do you want to perform?", "HERMEIR", ) as null|anything in possible_steps
 				if(input)
 					done_step = possible_steps[input]
 			else
@@ -546,9 +546,6 @@
 /mob/living/carbon/Stat()
 	..()
 	if(statpanel("Status"))
-		var/obj/item/organ/alien/plasmavessel/vessel = getorgan(/obj/item/organ/alien/plasmavessel)
-		if(vessel)
-			stat(null, "Plasma Stored: [vessel.storedPlasma]/[vessel.max_plasma]")
 		if(locate(/obj/item/assembly/health) in src)
 			stat(null, "Health: [health]")
 	add_abilities_to_panel()
@@ -730,6 +727,8 @@
 /mob/living/carbon/update_sight()
 	if(!client)
 		return
+	if(HAS_TRAIT(src, TRAIT_SEESPIRITS))//DK Change
+		see_invisible = SEE_INVISIBLE_OBSERVER
 //	if(stat == DEAD)
 //		sight = (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 //		see_in_dark = 8
