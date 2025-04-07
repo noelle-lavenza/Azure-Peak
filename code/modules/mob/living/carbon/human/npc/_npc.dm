@@ -23,7 +23,6 @@
 	var/next_passive_detect = 0
 	var/flee_in_pain = FALSE
 	var/stand_attempts = 0
-	var/resist_attempts = 0
 	var/ai_currently_active = FALSE
 	var/attack_speed = 0
 
@@ -44,38 +43,35 @@
 		return TRUE
 	if(client)
 		if(!ai_when_client)
+			walk_to(src,0)
 			return TRUE //remove us from processing
-//	if(world.time < next_ai_tick)
-//		return
-//	next_ai_tick = world.time + rand(10,20)
 	cmode = 1
 	update_cone_show()
 	if(stat == CONSCIOUS)
-		if(on_fire || buckled || restrained() || pulledby)
-			if(resist_attempts < 1) 
-				resisting = TRUE
-				walk_to(src,0)
-				resist()
-				resist_attempts += 1
-				resisting = FALSE
+		if(resisting) // already busy from a prior turn! stop!
+			walk_to(src,0)
+			return TRUE
+		if(on_fire || buckled || restrained() || pulledby) 
+			resisting = TRUE
+			walk_to(src,0)
+			resist() // this will block until the resist attempt finishes or is cancelled
+			resisting = FALSE
+			return TRUE // resisting uses your turn
 		if((mobility_flags & MOBILITY_CANSTAND) && (stand_attempts < 3))
 			resisting = TRUE
 			npc_stand()
 			resisting = FALSE
-		else
-			stand_attempts = 0
-			resist_attempts = 0
-			if(!handle_combat())
-				if(mode == AI_IDLE && !pickupTarget)
-					npc_idle()
-					if(del_on_deaggro && last_aggro_loss && (world.time >= last_aggro_loss + del_on_deaggro))
-						if(deaggrodel())
-							return TRUE
-	else
-		walk_to(src,0)
-		return TRUE
+			return TRUE // again, resisting uses your entire turn
+		stand_attempts = 0
+		if(!handle_combat())
+			if(mode == AI_IDLE && !pickupTarget)
+				npc_idle()
+				if(del_on_deaggro && last_aggro_loss && (world.time >= last_aggro_loss + del_on_deaggro))
+					if(deaggrodel())
+						return TRUE
 
 /mob/living/carbon/human/proc/npc_stand()
+	walk_to(src,0)
 	if(stand_up())
 		stand_attempts = 0
 	else
