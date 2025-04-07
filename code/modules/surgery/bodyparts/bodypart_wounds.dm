@@ -258,15 +258,18 @@
 			attempted_wounds += fracture_type
 	if(bclass in GLOB.artery_bclasses)
 		used = round(damage_dividend * 20 + (dam / 4) - 10 * resistance, 1)
+		var/used_bonus = 0
 		if(user)
 			if((bclass in GLOB.artery_strong_bclasses) && istype(user.rmb_intent, /datum/rmb_intent/strong))
-				used += 10
+				used_bonus = 10
 			else if(istype(user.rmb_intent, /datum/rmb_intent/aimed))
-				used += 10
-		if(prob(used))
+				used_bonus = 10
+		if(prob(used + used_bonus))
 			if((zone_precise == BODY_ZONE_PRECISE_STOMACH) && !resistance)
 				attempted_wounds += /datum/wound/slash/disembowel
-			attempted_wounds += /datum/wound/artery
+			// 10% chance with aimed or, sometimes, strong
+			// or guaranteed with crit weakness
+			attempted_wounds += (!resistance && (HAS_TRAIT(owner, TRAIT_CRITICAL_WEAKNESS) || prob(used_bonus))) ? /datum/wound/artery/chest : /datum/wound/artery
 
 	for(var/wound_type in shuffle(attempted_wounds))
 		var/datum/wound/applied = add_wound(wound_type, silent, crit_message)
