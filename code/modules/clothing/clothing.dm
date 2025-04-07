@@ -566,3 +566,24 @@ BLIND     // can't see anything
 
 /obj/item/clothing/proc/step_action() //this was made to rewrite clown shoes squeaking
 	SEND_SIGNAL(src, COMSIG_CLOTHING_STEP_ACTION)
+
+/obj/item/clothing/shoes/step_action()
+	. = ..()
+	//Bloody footprints
+	var/mob/living/wearer = loc
+	var/turf/T = get_turf(src)
+	if(bloody_shoes && bloody_shoes[blood_state])
+		for(var/obj/effect/decal/cleanable/blood/footprints/oldFP in T)
+			if (oldFP.blood_state == blood_state)
+				return
+		//No oldFP or they're all a different kind of blood
+		bloody_shoes[blood_state] = max(0, bloody_shoes[blood_state] - BLOOD_LOSS_PER_STEP)
+		if (bloody_shoes[blood_state] > BLOOD_LOSS_IN_SPREAD)
+			var/obj/effect/decal/cleanable/blood/footprints/FP = new /obj/effect/decal/cleanable/blood/footprints(T)
+			FP.blood_state = blood_state
+			FP.entered_dirs |= wearer.dir
+			FP.bloodiness = bloody_shoes[blood_state] - BLOOD_LOSS_IN_SPREAD
+			FP.add_blood_DNA(return_blood_DNA())
+			FP.update_icon()
+		wearer.update_inv_shoes()
+	//End bloody footprints

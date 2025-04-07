@@ -212,27 +212,26 @@
   *
   * Called by client/Move()
   */
+
 /client/proc/Process_Grab()
-	if(mob.pulledby)
-		if(mob.pulledby == mob)
-			return FALSE
-		if(mob.pulledby == mob.pulling)			//Don't autoresist grabs if we're grabbing them too.
-			move_delay = world.time + 10
-			to_chat(src, span_warning("I can't move!"))
-			return TRUE
-		else if(mob.incapacitated(ignore_restraints = 1))
-			move_delay = world.time + 10
-			to_chat(src, span_warning("I can't move!"))
-			return TRUE
-		else if(mob.restrained(ignore_grab = 1))
-			move_delay = world.time + 10
-			to_chat(src, span_warning("I'm restrained! I can't move!"))
-			return TRUE
-		else
-//			return mob.resist_grab(1)
-			move_delay = world.time + 10
-			to_chat(src, span_warning("I can't move!"))
-			return TRUE
+	if(!mob.pulledby || mob.pulledby == mob)
+		return FALSE
+	if(mob.pulledby == mob.pulling)			//Don't autoresist grabs if we're grabbing them too.
+		move_delay = world.time + 1 SECONDS
+		to_chat(src, span_warning("I can't move!"))
+		return TRUE
+	else if(mob.incapacitated(ignore_restraints = TRUE))
+		move_delay = world.time + 1 SECONDS
+		to_chat(src, span_warning("I can't move!"))
+		return TRUE
+	else if(mob.restrained(ignore_grab = TRUE))
+		move_delay = world.time + 1 SECONDS
+		to_chat(src, span_warning("I'm restrained! I can't move!"))
+		return TRUE
+	else
+		move_delay = world.time + 1 SECONDS
+		to_chat(src, span_warning("I can't move!"))
+		return TRUE
 
 /**
   * Allows mobs to ignore density and phase through objects

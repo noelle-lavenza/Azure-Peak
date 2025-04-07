@@ -57,43 +57,19 @@
 		if(hostagetaker) // If we are TAKEN hostage. Confusing vars at first but then it makes sense.
 			attackhostage()
 
-		if(wear_armor)
-			if(mobility_flags & MOBILITY_STAND)
+		if(mobility_flags & MOBILITY_STAND)
+			if(istype(wear_armor, /obj/item/clothing))
 				var/obj/item/clothing/C = wear_armor
 				C.step_action()
-
-		if(wear_shirt)
-			if(mobility_flags & MOBILITY_STAND)
+			if(istype(wear_shirt, /obj/item/clothing))
 				var/obj/item/clothing/C = wear_shirt
 				C.step_action()
-
-		if(cloak)
-			if(mobility_flags & MOBILITY_STAND)
+			if(istype(cloak, /obj/item/clothing))
 				var/obj/item/clothing/C = cloak
 				C.step_action()
-
-		if(shoes)
-			if(mobility_flags & MOBILITY_STAND)
-				var/obj/item/clothing/shoes/S = shoes
-
-				//Bloody footprints
-				var/turf/T = get_turf(src)
-				if(S.bloody_shoes && S.bloody_shoes[S.blood_state])
-					for(var/obj/effect/decal/cleanable/blood/footprints/oldFP in T)
-						if (oldFP.blood_state == S.blood_state)
-							return
-					//No oldFP or they're all a different kind of blood
-					S.bloody_shoes[S.blood_state] = max(0, S.bloody_shoes[S.blood_state] - BLOOD_LOSS_PER_STEP)
-					if (S.bloody_shoes[S.blood_state] > BLOOD_LOSS_IN_SPREAD)
-						var/obj/effect/decal/cleanable/blood/footprints/FP = new /obj/effect/decal/cleanable/blood/footprints(T)
-						FP.blood_state = S.blood_state
-						FP.entered_dirs |= dir
-						FP.bloodiness = S.bloody_shoes[S.blood_state] - BLOOD_LOSS_IN_SPREAD
-						FP.add_blood_DNA(S.return_blood_DNA())
-						FP.update_icon()
-					update_inv_shoes()
-				//End bloody footprints
-				S.step_action()
+			if(istype(shoes, /obj/item/clothing))
+				var/obj/item/clothing/C = shoes
+				C.step_action()
 		if(mouth)
 		
 			if(mouth.spitoutmouth && prob(5))
