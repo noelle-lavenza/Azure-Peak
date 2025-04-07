@@ -38,39 +38,41 @@
 	START_PROCESSING(SShumannpc,src)
 
 /mob/living/carbon/human/proc/process_ai()
-	if(stat == DEAD)
+	if(IsDeadOrIncap())
 		walk_to(src,0)
 		return TRUE
+	// we assume we're conscious after this point since we aren't dead or incapacitated
 	if(client)
 		if(!ai_when_client)
 			walk_to(src,0)
 			return TRUE //remove us from processing
 	cmode = 1
 	update_cone_show()
-	if(stat == CONSCIOUS)
-		if(resisting) // already busy from a prior turn! stop!
-			walk_to(src,0)
-			return TRUE
-		if(on_fire || buckled || restrained() || pulledby) 
-			resisting = TRUE
-			walk_to(src,0)
-			resist() // this will block until the resist attempt finishes or is cancelled
-			resisting = FALSE
-			return TRUE // resisting uses your turn
-		if((mobility_flags & MOBILITY_CANSTAND) && (stand_attempts < 3))
-			resisting = TRUE
-			npc_stand()
-			resisting = FALSE
-			return TRUE // again, resisting uses your entire turn
-		stand_attempts = 0
-		if(!handle_combat())
-			if(mode == NPC_AI_IDLE && !pickupTarget)
-				npc_idle()
-				if(del_on_deaggro && last_aggro_loss && (world.time >= last_aggro_loss + del_on_deaggro))
-					if(deaggrodel())
-						return TRUE
+	if(resisting) // already busy from a prior turn! stop!
+		walk_to(src,0)
+		return TRUE
+	if(on_fire || buckled || restrained() || pulledby) 
+		resisting = TRUE
+		walk_to(src,0)
+		resist() // this will block until the resist attempt finishes or is cancelled
+		resisting = FALSE
+		return TRUE // resisting uses your turn
+	if((mobility_flags & MOBILITY_CANSTAND) && (stand_attempts < 3))
+		resisting = TRUE
+		npc_stand()
+		resisting = FALSE
+		return TRUE // again, resisting uses your entire turn
+	stand_attempts = 0
+	if(!handle_combat())
+		if(mode == NPC_AI_IDLE && !pickupTarget)
+			npc_idle()
+			if(del_on_deaggro && last_aggro_loss && (world.time >= last_aggro_loss + del_on_deaggro))
+				if(deaggrodel())
+					return TRUE
 
 /mob/living/carbon/human/proc/npc_stand()
+	if(next_move > world.time)
+		return
 	walk_to(src,0)
 	if(stand_up())
 		stand_attempts = 0
@@ -140,14 +142,15 @@
 					break
 			myPath = get_path_to(src, turf_of_target, /turf/proc/Distance, MAX_RANGE_FIND + 1, 250,1)
 
-		if(myPath)
-			if(myPath.len > 0)
-				for(var/i = 0; i < maxStepsTick; ++i)
-					if(!IsDeadOrIncap())
-						if(myPath.len >= 1)
-							walk_to(src,myPath[1],0,update_movespeed())
-							myPath -= myPath[1]
-				return 1
+		if(LAZYLEN(myPath))
+			for(var/i = 0; i < maxStepsTick; ++i)
+				if(IsDeadOrIncap())
+					continue
+				if(myPath.len >= 1)
+					var/movespeed = update_movespeed()
+					walk_to(src,myPath[1],0,movespeed) // this doesn't sleep, it just queues the action
+					sleep(movespeed) // this is what actually does the sleeping
+					myPath -= myPath[1]
 	else
 		if(turf_of_target?.z < z)
 			turf_of_target = get_step_multiz(turf_of_target, DOWN)
@@ -166,16 +169,12 @@
 // taken from /mob/living/carbon/human/interactive/
 /mob/living/carbon/human/proc/IsDeadOrIncap(checkDead = TRUE)
 	if(!(mobility_flags & MOBILITY_FLAGS_INTERACTION))
-		return 1
+		return TRUE
 	if(health <= 0 && checkDead)
-		return 1
-	if(IsUnconscious())
-		return 1
-	if(IsStun() || IsParalyzed())
-		return 1
-	if(stat)
-		return 1
-	return 0
+		return TRUE
+	if(incapacitated(ignore_restraints = TRUE))
+		return TRUE
+	return FALSE
 
 
 /mob/living/carbon/human/proc/equip_item(obj/item/I)
@@ -257,7 +256,7 @@
 							next_passive_detect = world.time + STAPER SECONDS
 
 		if(NPC_AI_HUNT)		// hunting for attacker
-			if(target != null)
+			if(target)
 				if(!should_target(target))
 					if (target.alpha == 0 && target.rogue_sneaking) // attempt one detect since we were just fighting them and have lost them
 						if (npc_detect_sneak(target))
@@ -267,6 +266,14 @@
 						return TRUE
 				m_intent = MOVE_INTENT_WALK
 				INVOKE_ASYNC(src, PROC_REF(walk2derpless), target)
+
+			// Flee before trying to pick up a weapon.
+			if(flee_in_pain && target && (target.stat == CONSCIOUS))
+				var/paine = get_complex_pain()
+				if(paine >= ((STACON * 10)*0.9))
+					mode = NPC_AI_FLEE
+					m_intent = MOVE_INTENT_RUN
+					return TRUE
 
 			if(!get_active_held_item() && !get_inactive_held_item() && !mind?.has_antag_datum(/datum/antagonist/zombie))
 				// pickup any nearby weapon
@@ -287,16 +294,16 @@
 				frustration = 0
 				face_atom(target)
 				monkey_attack(target)
-				if(flee_in_pain && (target.stat == CONSCIOUS))
-					var/paine = get_complex_pain()
-					if(paine >= ((STACON * 10)*0.9))
-//						mode = AI_FLEE
-						walk_away(src, target, 5, update_movespeed())
 				return TRUE
 			else								// not next to perp
 				frustration++
 
 		if(NPC_AI_FLEE)
+			if(!target || get_dist(src, target) >= 4)
+				back_to_idle()
+			else
+				// walk to a tile more than 5 tiles away
+				walk_away(src, target, 5, update_movespeed())
 			return TRUE
 
 	return IsStandingStill()
@@ -308,6 +315,7 @@
 		stop_pulling()
 	myPath = list()
 	mode = NPC_AI_IDLE
+	m_intent = MOVE_INTENT_WALK
 	target = null
 	a_intent = INTENT_HELP
 	frustration = 0
