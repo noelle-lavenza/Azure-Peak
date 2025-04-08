@@ -399,7 +399,7 @@
 			owner.emote("embed")
 			playsound(owner, 'sound/combat/newstuck.ogg', 100, vary = TRUE)
 		if(crit_message)
-			owner.next_attack_msg += " <span class='userdanger'>[embedder] runs through [owner]'s [src]!</span>"
+			owner.next_attack_msg += " <span class='userdanger'>[embedder] runs through [owner]'s [name]!</span>"
 		update_disabled()
 	return TRUE
 
