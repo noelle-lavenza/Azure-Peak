@@ -15,15 +15,12 @@
 	var/obj/item/bodypart/limb_grabbed		//ref to actual bodypart being grabbed if we're grabbing a carbo
 	var/sublimb_grabbed		//ref to what precise (sublimb) we are grabbing (if any) (zone string or item ref)
 	var/mob/living/carbon/grabbee
-	var/list/dependents = list()
+	var/list/dependents
 	var/handaction
 	var/bleed_suppressing = 0.5 //multiplier for how much we suppress bleeding, can accumulate so two grabs means 25% bleeding
 
 /atom/movable //reference to all obj/item/grabbing
-	var/list/grabbedby = list()
-
-/turf
-	var/list/grabbedby = list()
+	var/list/grabbedby
 
 /obj/item/grabbing/Initialize()
 	. = ..()
@@ -67,13 +64,14 @@
 				C.l_grab = src
 
 /datum/proc/grabdropped(obj/item/grabbing/G)
-	if(G)
+	if(LAZYLEN(G?.dependents))
 		for(var/datum/D in G.dependents)
 			if(D == src)
 				G.dependents -= D
+		UNSETEMPTY(G.dependents)
 
 /obj/item/grabbing/proc/relay_cancel_action()
-	if(handaction)
+	if(handaction && LAZYLEN(dependents))
 		for(var/datum/D in dependents) //stop fapping
 			if(handaction == D)
 				D.grabdropped(src)
@@ -81,15 +79,9 @@
 
 /obj/item/grabbing/Destroy()
 	STOP_PROCESSING(SSfastprocess, src)
-	if(isobj(grabbed))
-		var/obj/I = grabbed
-		I.grabbedby -= src
-	if(ismob(grabbed))
-		var/mob/M = grabbed
-		M.grabbedby -= src
-	if(isturf(grabbed))
-		var/turf/T = grabbed
-		T.grabbedby -= src
+	if(ismovable(grabbed))
+		var/atom/movable/movable = grabbed
+		LAZYREMOVE(movable.grabbedby, src)
 	if(grabbee)
 		if(grabbee.r_grab == src)
 			grabbee.r_grab = null
