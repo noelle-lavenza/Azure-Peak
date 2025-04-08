@@ -152,9 +152,9 @@
 			H.heal_wounds(2)
 			H.update_damage_overlays()
 		if(M == user)
-			user.visible_message(span_notice("[user] hammers [user.p_their()] [affecting]."), span_notice("I hammer my [affecting]."))
+			user.visible_message(span_notice("[user] hammers [user.p_their()] [affecting]."), span_notice("I hammer my [affecting.name]."))
 		else
-			user.visible_message(span_notice("[user] hammers [M]'s [affecting]."), span_notice("I hammer [M]'s [affecting]."))
+			user.visible_message(span_notice("[user] hammers [M]'s [affecting.name]."), span_notice("I hammer [M]'s [affecting.name]."))
 	else //Non-construct.
 		to_chat(user, span_warning("I can't tinker on living flesh!"))
 
