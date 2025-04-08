@@ -266,7 +266,7 @@
 			C.apply_card_vars(C,O)
 			C.pickup(cardUser)
 			cardUser.put_in_hands(C)
-			cardUser.visible_message("<span class='notice'>[cardUser] draws a card from [cardUser.p_their()] hand.</span>", "<span class='notice'>I take the [C.cardname] from your hand.</span>")
+			cardUser.visible_message("<span class='notice'>[cardUser] draws a card from [cardUser.p_their()] hand.</span>", "<span class='notice'>I take the [C.cardname] from my hand.</span>")
 
 			interact(cardUser)
 			if(src.currenthand.len < 3)
@@ -291,7 +291,7 @@
 	if(istype(C))
 		if(C.parentdeck == src.parentdeck)
 			src.currenthand += C.cardname
-			user.visible_message("<span class='notice'>[user] adds a card to [user.p_their()] hand.</span>", "<span class='notice'>I add the [C.cardname] to your hand.</span>")
+			user.visible_message("<span class='notice'>[user] adds a card to [user.p_their()] hand.</span>", "<span class='notice'>I add the [C.cardname] to my hand.</span>")
 			qdel(C)
 			interact(user)
 			if(currenthand.len > 4)
@@ -335,7 +335,7 @@
 		if(cardUser.is_holding(src))
 			cardUser.visible_message("<span class='notice'>[cardUser] checks [cardUser.p_their()] card.</span>", "<span class='notice'>The card reads: [cardname].</span>")
 		else
-			. += "<span class='warning'>I need to have the card in your hand to check it!</span>"
+			. += "<span class='warning'>I need to have the card in my hand to check it!</span>"
 
 
 /obj/item/toy/cards/singlecard/verb/Flip()
@@ -380,7 +380,7 @@
 		var/obj/item/toy/cards/cardhand/H = I
 		if(H.parentdeck == parentdeck)
 			H.currenthand += cardname
-			user.visible_message("<span class='notice'>[user] adds a card to [user.p_their()] hand.</span>", "<span class='notice'>I add the [cardname] to your hand.</span>")
+			user.visible_message("<span class='notice'>[user] adds a card to [user.p_their()] hand.</span>", "<span class='notice'>I add the [cardname] to my hand.</span>")
 			qdel(src)
 			H.interact(user)
 			if(H.currenthand.len > 4)

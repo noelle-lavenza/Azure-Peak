@@ -158,7 +158,7 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 				//updating inv screen after handled by living/Topic()
 		else
 			// Display a warning if the user mocks up
-			to_chat(src, "<span class='warning'>I feel your [pocket_side] pocket being fumbled with!</span>")
+			to_chat(src, "<span class='warning'>I feel my [pocket_side] pocket being fumbled with!</span>")
 
 	if(href_list["task"] == "assess")
 		if(!ishuman(usr))

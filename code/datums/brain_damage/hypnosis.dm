@@ -38,7 +38,7 @@
 /datum/brain_trauma/hypnosis/on_lose()
 	message_admins("[ADMIN_LOOKUPFLW(owner)] is no longer hypnotized with the phrase '[hypnotic_phrase]'.")
 	log_game("[key_name(owner)] is no longer hypnotized with the phrase '[hypnotic_phrase]'.")
-	to_chat(owner, span_danger("I suddenly snap out of your hypnosis. The phrase '[hypnotic_phrase]' no longer feels important to you."))
+	to_chat(owner, span_danger("I suddenly snap out of my hypnosis. The phrase '[hypnotic_phrase]' no longer feels important to you."))
 	owner.clear_alert("hypnosis")
 	..()
 

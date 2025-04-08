@@ -7,8 +7,8 @@
 	name = "Godwoken Syndrome"
 	desc = ""
 	scan_desc = ""
-	gain_text = "<span class='notice'>I feel a higher power inside your mind...</span>"
-	lose_text = "<span class='warning'>The divine presence leaves your head, no longer interested.</span>"
+	gain_text = "<span class='notice'>I feel a higher power inside my mind...</span>"
+	lose_text = "<span class='warning'>The divine presence leaves my head, no longer interested.</span>"
 
 /datum/brain_trauma/special/godwoken/on_life()
 	..()
@@ -187,27 +187,27 @@
 /datum/brain_trauma/special/existential_crisis/proc/fade_out()
 	if(veil)
 		return
-	var/duration = rand(50, 450)
+	var/duration = rand(5, 45) SECONDS
 	veil = new(owner.drop_location())
-	to_chat(owner, "<span class='warning'>[pick("You stop thinking for a moment. Therefore you are not.",\
+	to_chat(owner, "<span class='warning'>[pick("I stop thinking for a moment. Therefore I are not.",\
 												"To be or not to be...",\
 												"Why exist?",\
-												"You stop keeping it real.",\
-												"Your grip on existence slips.",\
-												"Do you even exist?",\
-												"You simply fade away.")]</span>")
+												"I stop keeping it real.",\
+												"My grip on existence slips.",\
+												"Do I even exist?",\
+												"I simply fade away.")]</span>")
 	owner.forceMove(veil)
 	SEND_SIGNAL(owner, COMSIG_MOVABLE_SECLUDED_LOCATION)
 	for(var/thing in owner)
 		var/atom/movable/AM = thing
 		SEND_SIGNAL(AM, COMSIG_MOVABLE_SECLUDED_LOCATION)
-	next_crisis = world.time + 600
+	next_crisis = world.time + 60 SECONDS
 	addtimer(CALLBACK(src, PROC_REF(fade_in)), duration)
 
 /datum/brain_trauma/special/existential_crisis/proc/fade_in()
 	QDEL_NULL(veil)
 	to_chat(owner, "<span class='notice'>I fade back into reality.</span>")
-	next_crisis = world.time + 600
+	next_crisis = world.time + 60 SECONDS
 
 //base sync holder is in desynchronizer.dm
 /obj/effect/abstract/sync_holder/veil
@@ -218,8 +218,8 @@
 	name = "Criminal"
 	desc = ""
 	scan_desc = ""
-	gain_text = "<span class='warning'>Justice is coming for you.</span>"
-	lose_text = "<span class='notice'>I were absolved for your crimes.</span>"
+	gain_text = "<span class='warning'>Justice is coming for me.</span>"
+	lose_text = "<span class='notice'>I was absolved for my crimes.</span>"
 	clonable = FALSE
 	random_gain = FALSE
 	var/obj/effect/hallucination/simple/securitron/beepsky
