@@ -125,7 +125,7 @@
 			if(reason)
 				owner.pointed(reason)
 		if(3)
-			to_chat(owner, span_warning("I shut your eyes in terror!"))
+			to_chat(owner, span_warning("I shut my eyes in terror!"))
 			owner.Jitter(5)
 			owner.blind_eyes(10)
 		if(4)

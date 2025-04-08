@@ -547,7 +547,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 
 	can_reenter_corpse = FALSE
-	to_chat(src, span_boldnotice("I can no longer be brought back into your body."))
+	to_chat(src, span_boldnotice("I can no longer be brought back into my body."))
 	return TRUE
 
 /mob/dead/observer/proc/notify_cloning(message, sound, atom/source, flashwindow = TRUE)

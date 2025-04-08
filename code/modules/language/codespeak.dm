@@ -45,7 +45,7 @@
 		to_chat(user, span_boldwarning("I start skimming through [src], but you already know Codespeak."))
 		return
 
-	to_chat(user, span_boldannounce("I start skimming through [src], and suddenly your mind is filled with codewords and responses."))
+	to_chat(user, span_boldannounce("I start skimming through [src], and suddenly my mind is filled with codewords and responses."))
 	user.grant_language(/datum/language/codespeak)
 
 	use_charge(user)

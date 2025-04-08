@@ -243,7 +243,7 @@
 					var/obj/item/item_to_add = usr.get_active_held_item()
 
 					if(!item_to_add)
-						usr.visible_message("<span class='notice'>[usr] pets [src].</span>", "<span class='notice'>I rest your hand on [src]'s back for a moment.</span>")
+						usr.visible_message("<span class='notice'>[usr] pets [src].</span>", "<span class='notice'>I rest my hand on [src]'s back for a moment.</span>")
 						return
 
 					if(!usr.temporarilyRemoveItemFromInventory(item_to_add))
@@ -283,7 +283,7 @@
 			to_chat(user, "<span class='warning'>I can't put more than one hat on [src]!</span>")
 		return
 	if(!item_to_add)
-		user.visible_message("<span class='notice'>[user] pets [src].</span>", "<span class='notice'>I rest your hand on [src]'s head for a moment.</span>")
+		user.visible_message("<span class='notice'>[user] pets [src].</span>", "<span class='notice'>I rest my hand on [src]'s head for a moment.</span>")
 		if(flags_1 & HOLOGRAM_1)
 			return
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, src, /datum/mood_event/pet_animal, src)

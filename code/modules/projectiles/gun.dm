@@ -165,20 +165,20 @@
 
 	if(user == target)
 		target.visible_message("<span class='warning'>[user] sticks [src] in [user.p_their()] mouth, ready to pull the trigger...</span>", \
-			"<span class='danger'>I stick [src] in your mouth, ready to pull the trigger...</span>")
+			"<span class='danger'>I stick [src] in my mouth, ready to pull the trigger...</span>")
 	else
 		target.visible_message("<span class='warning'>[user] points [src] at [target]'s head, ready to pull the trigger...</span>", \
-			"<span class='danger'>[user] points [src] at your head, ready to pull the trigger...</span>")
+			"<span class='danger'>[user] points [src] at my head, ready to pull the trigger...</span>")
 
 	if(!bypass_timer && (!do_mob(user, target, 120) || user.zone_selected != BODY_ZONE_PRECISE_MOUTH))
 		if(user)
 			if(user == target)
 				user.visible_message("<span class='notice'>[user] decided not to shoot.</span>")
 			else if(target && target.Adjacent(user))
-				target.visible_message("<span class='notice'>[user] has decided to spare [target]</span>", "<span class='notice'>[user] has decided to spare your life!</span>")
+				target.visible_message("<span class='notice'>[user] has decided to spare [target]</span>", "<span class='notice'>[user] has decided to spare my life!</span>")
 		return
 
-	target.visible_message("<span class='warning'>[user] pulls the trigger!</span>", "<span class='danger'>[(user == target) ? "You pull" : "[user] pulls"] the trigger!</span>")
+	target.visible_message("<span class='warning'>[user] pulls the trigger!</span>", "<span class='danger'>[(user == target) ? "I pull" : "[user] pulls"] the trigger!</span>")
 
 	if(chambered && chambered.BB)
 		chambered.BB.damage *= 5

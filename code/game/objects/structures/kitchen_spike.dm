@@ -83,12 +83,12 @@
 
 		else
 			M.visible_message(span_warning("[M] struggles to break free from [src]!"),\
-			span_notice("I struggle to break free from [src], exacerbating your wounds! (Stay still for two minutes.)"),\
+			span_notice("I struggle to break free from [src], exacerbating my wounds! (Stay still for two minutes.)"),\
 			span_hear("I hear a wet squishing noise.."))
 			M.adjustBruteLoss(30)
 			if(!do_after(M, 1200, target = src))
 				if(M && M.buckled)
-					to_chat(M, span_warning("I fail to free yourself!"))
+					to_chat(M, span_warning("I fail to free myself!"))
 				return
 		if(!M.buckled)
 			return

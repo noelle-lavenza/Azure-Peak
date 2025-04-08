@@ -203,7 +203,7 @@
 		update_icon()
 		return TRUE
 	else
-		to_chat(user, "<span class='warning'>I cannot seem to get \the [src] out of your hands!</span>")
+		to_chat(user, "<span class='warning'>I cannot seem to get \the [src] out of my hands!</span>")
 		return FALSE
 
 ///Handles all the logic of magazine ejection, if tac_load is set that magazine will be tacloaded in the place of the old eject
