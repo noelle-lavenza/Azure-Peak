@@ -2,7 +2,7 @@
 	name = "Arcyne Potential"
 	desc = "I grasped the basics of arcyne magic at an early age, and have been able to prestidigitate for as long as I can remember."
 	custom_text = "Combat classes receive a weaker version of this virtue -- they get fewer spellpoints."
-	added_skills = list(list(/datum/skill/magic/arcane, 1, 6))
+	added_skills = list(list(/datum/skill/magic/arcane, 1, SKILL_LEVEL_LEGENDARY))
 
 /datum/virtue/combat/magical_potential/apply_to_human(mob/living/carbon/human/recipient)
 	if (!recipient.mind?.get_skill_level(/datum/skill/magic/arcane)) // we can do this because apply_to is always called first
@@ -20,7 +20,7 @@
 	name = "Devotee"
 	desc = "Though not officially of the Church, my relationship with my chosen Patron is strong enough to grant me the most minor of their blessings. I've also kept a psycross of my deity."
 	custom_text = "Combat classes receive a weaker version of this virtue -- they do not get the first tier of miracles."
-	added_skills = list(list(/datum/skill/magic/holy, 1, 6))
+	added_skills = list(list(/datum/skill/magic/holy, 1, SKILL_LEVEL_LEGENDARY))
 
 /datum/virtue/combat/devotee/apply_to_human(mob/living/carbon/human/recipient)
 	if (!recipient.mind)
@@ -91,11 +91,11 @@
 	if(recipient.mind?.get_skill_level(/datum/skill/combat/swords) < SKILL_LEVEL_APPRENTICE)
 		recipient.mind?.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_APPRENTICE, silent = TRUE)
 	else
-		added_skills = list(list(/datum/skill/combat/swords, 1, 3))
+		added_skills = list(list(/datum/skill/combat/swords, 1, SKILL_LEVEL_JOURNEYMAN))
 	if(recipient.mind?.get_skill_level(/datum/skill/combat/knives) < SKILL_LEVEL_APPRENTICE)
 		recipient.mind?.adjust_skillrank_up_to(/datum/skill/combat/knives, SKILL_LEVEL_APPRENTICE, silent = TRUE)
 	else	
-		added_skills = list(list(/datum/skill/combat/knives, 1, 3))
+		added_skills = list(list(/datum/skill/combat/knives, 1, SKILL_LEVEL_JOURNEYMAN))
 
 /datum/virtue/combat/executioner
 	name = "Executioner Apprentice"
@@ -107,11 +107,11 @@
 	if(recipient.mind?.get_skill_level(/datum/skill/combat/whipsflails) < SKILL_LEVEL_APPRENTICE)
 		recipient.mind?.adjust_skillrank_up_to(/datum/skill/combat/whipsflails, SKILL_LEVEL_APPRENTICE, silent = TRUE)
 	else
-		added_skills = list(list(/datum/skill/combat/whipsflails, 1, 3))
+		added_skills = list(list(/datum/skill/combat/whipsflails, 1, SKILL_LEVEL_JOURNEYMAN))
 	if(recipient.mind?.get_skill_level(/datum/skill/combat/axes) < SKILL_LEVEL_APPRENTICE)
 		recipient.mind?.adjust_skillrank_up_to(/datum/skill/combat/axes, SKILL_LEVEL_APPRENTICE, silent = TRUE)
 	else
-		added_skills = list(list(/datum/skill/combat/axes, 1, 3))
+		added_skills = list(list(/datum/skill/combat/axes, 1, SKILL_LEVEL_JOURNEYMAN))
 
 /datum/virtue/combat/militia
 	name = "Militiaman Apprentice"
@@ -123,11 +123,11 @@
 	if(recipient.mind?.get_skill_level(/datum/skill/combat/polearms) < SKILL_LEVEL_APPRENTICE)
 		recipient.mind?.adjust_skillrank_up_to(/datum/skill/combat/polearms, SKILL_LEVEL_APPRENTICE, silent = TRUE)
 	else
-		added_skills = list(list(/datum/skill/combat/polearms, 1, 3))
+		added_skills = list(list(/datum/skill/combat/polearms, 1, SKILL_LEVEL_JOURNEYMAN))
 	if(recipient.mind?.get_skill_level(/datum/skill/combat/maces) < SKILL_LEVEL_APPRENTICE)
 		recipient.mind?.adjust_skillrank_up_to(/datum/skill/combat/maces, SKILL_LEVEL_APPRENTICE, silent = TRUE)
 	else
-		added_skills = list(list(/datum/skill/combat/maces, 1, 3))
+		added_skills = list(list(/datum/skill/combat/maces, 1, SKILL_LEVEL_JOURNEYMAN))
 
 /datum/virtue/combat/brawler
 	name = "Brawler Apprentice"
@@ -139,11 +139,11 @@
 	if(recipient.mind?.get_skill_level(/datum/skill/combat/unarmed) < SKILL_LEVEL_APPRENTICE)
 		recipient.mind?.adjust_skillrank_up_to(/datum/skill/combat/unarmed, SKILL_LEVEL_APPRENTICE, silent = TRUE)
 	else
-		added_skills = list(list(/datum/skill/combat/unarmed, 1, 3))
+		added_skills = list(list(/datum/skill/combat/unarmed, 1, SKILL_LEVEL_JOURNEYMAN))
 	if(recipient.mind?.get_skill_level(/datum/skill/combat/wrestling) < SKILL_LEVEL_APPRENTICE)
 		recipient.mind?.adjust_skillrank_up_to(/datum/skill/combat/wrestling, SKILL_LEVEL_APPRENTICE, silent = TRUE)
 	else
-		added_skills = list(list(/datum/skill/combat/wrestling, 1, 3))
+		added_skills = list(list(/datum/skill/combat/wrestling, 1, SKILL_LEVEL_JOURNEYMAN))
 
 
 /datum/virtue/combat/bowman
@@ -158,7 +158,7 @@
 	if(recipient.mind?.get_skill_level(/datum/skill/combat/bows) < SKILL_LEVEL_APPRENTICE)
 		recipient.mind?.adjust_skillrank_up_to(/datum/skill/combat/bows, SKILL_LEVEL_APPRENTICE, silent = TRUE)
 	else
-		added_skills = list(list(/datum/skill/combat/bows, 1, 6))
+		added_skills = list(list(/datum/skill/combat/bows, 1, SKILL_LEVEL_LEGENDARY))
 /*/datum/virtue/combat/tavern_brawler
 	name = "Tavern Brawler"
 	desc = "I've never met a problem my fists couldn't solve."

@@ -188,9 +188,9 @@
 	)
 
 	repair_skills = list(
-		/datum/skill/craft/armorsmithing = 4,
-		/datum/skill/craft/blacksmithing = 3,
-		/datum/skill/craft/smelting = 3,
+		/datum/skill/craft/armorsmithing = SKILL_LEVEL_EXPERT,
+		/datum/skill/craft/blacksmithing = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/craft/smelting = SKILL_LEVEL_JOURNEYMAN,
 	)
 
 	race_repair = list(
@@ -204,9 +204,9 @@
 
 /datum/component/peelarmor/grudgebearer/helmet
 	repair_skills = list(
-		/datum/skill/craft/armorsmithing = 3,
-		/datum/skill/craft/blacksmithing = 3,
-		/datum/skill/craft/smelting = 3,
+		/datum/skill/craft/armorsmithing = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/craft/blacksmithing = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/craft/smelting = SKILL_LEVEL_JOURNEYMAN,
 	)
 
 	applied_trait = null
@@ -256,8 +256,8 @@
 	)
 
 	repair_skills = list(
-		/datum/skill/craft/armorsmithing = 3,
-		/datum/skill/craft/blacksmithing = 2,
-		/datum/skill/craft/smelting = 2,
+		/datum/skill/craft/armorsmithing = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/craft/blacksmithing = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/craft/smelting = SKILL_LEVEL_APPRENTICE,
 	)
 	applied_trait = null
