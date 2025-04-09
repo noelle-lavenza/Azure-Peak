@@ -50,20 +50,22 @@
 	update_cone_show()
 	if(resisting) // already busy from a prior turn! stop!
 		walk_to(src,0)
-		return TRUE
+		return
 	if(on_fire || buckled || restrained() || pulledby) 
 		resisting = TRUE
 		walk_to(src,0)
 		resist() // this will block until the resist attempt finishes or is cancelled
 		resisting = FALSE
-		return TRUE // resisting uses your turn
-	if((mobility_flags & MOBILITY_CANSTAND) && (stand_attempts < 3))
+		return // resisting uses your turn
+	if(!(mobility_flags & MOBILITY_STAND) && (mobility_flags & MOBILITY_CANSTAND) && (stand_attempts < 3))
 		resisting = TRUE
 		npc_stand()
 		resisting = FALSE
-		return TRUE // again, resisting uses your entire turn
-	stand_attempts = 0
-	if(!handle_combat())
+		return // again, resisting uses your entire turn
+	if(stand_attempts > 0) // don't overdo it, you're on cooldown
+		stand_attempts--
+		return
+	if(!handle_combat()) // handle_combat returns TRUE if we're busy, e.g. have done a combat action or are in the middle of doing something
 		if(mode == NPC_AI_IDLE && !pickupTarget)
 			npc_idle()
 			if(del_on_deaggro && last_aggro_loss && (world.time >= last_aggro_loss + del_on_deaggro))
@@ -82,14 +84,14 @@
 /mob/living/carbon/human/proc/npc_idle()
 	if(m_intent == MOVE_INTENT_SNEAK)
 		return
-	if(world.time < next_idle + rand(30,50))
+	if(world.time < next_idle + rand(3 SECONDS, 5 SECONDS))
 		return
-	next_idle = world.time + rand(30,50)
+	next_idle = world.time + rand(3 SECONDS, 5 SECONDS)
 	if((mobility_flags & MOBILITY_MOVE) && isturf(loc))
 		if(wander)
 			if(prob(50))
 				var/turf/T = get_step(loc,pick(GLOB.cardinals))
-				if(!istype(T, /turf/open/transparent/openspace))
+				if(T.can_traverse_safely(src))
 					Move(T)
 			else
 				setDir(turn(dir, pick(90,-90)))
