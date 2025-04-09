@@ -188,7 +188,7 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 			return
 		user.visible_message("[user] begins assessing [src].")
 		
-		if(do_mob(user, src, ((intellectual ? 20 : 40)) - (user.STAINT - 10) - (user.STAPER - 10) - user.mind?.get_skill_level(/datum/skill/misc/reading), uninterruptible = intellectual, double_progress = (intellectual ? FALSE : TRUE)))
+		if(do_mob(user, src, ((intellectual ? 2 SECONDS : 4 SECONDS)) - (user.STAINT/10 - 1) SECONDS - (user.STAPER/10 - 1) SECONDS - user.mind?.get_skill_level(/datum/skill/misc/reading), uninterruptible = intellectual, double_progress = (intellectual ? FALSE : TRUE)))
 			var/is_guarded = HAS_TRAIT(src, TRAIT_DECEIVING_MEEKNESS)	//Will scramble Stats and prevent skills from being shown
 			var/is_smart = FALSE	//Maximum info (all skills, gear and stats) either Intellectual virtue or having high enough PER / INT / Reading
 			var/is_stupid = FALSE	//Less than 9 INT, Intellectual virtue overrides it.
