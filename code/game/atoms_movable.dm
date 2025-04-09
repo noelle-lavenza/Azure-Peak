@@ -300,6 +300,7 @@
 			lastcardinal = direct
 			. = ..()
 		else //Diagonal move, split it into cardinal moves
+			moving_diagonally = FIRST_DIAG_STEP
 			if (direct & NORTH)
 				if (direct & EAST)
 					if(lastcardinal == NORTH)
@@ -358,6 +359,7 @@
 					else
 						direction_to_move = pick(SOUTH,WEST)
 						. = step(src, direction_to_move)
+				moving_diagonally = 0
 
 	if(!loc || (loc == oldloc && oldloc != newloc))
 		last_move = 0

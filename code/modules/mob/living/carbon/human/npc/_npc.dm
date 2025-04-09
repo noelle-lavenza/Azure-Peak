@@ -141,15 +141,20 @@
 	var/move_started = world.time
 	for(var/i = 0; i < maxStepsTick; i++)
 		var/movespeed = update_movespeed()
-		if(!(mobility_flags & MOBILITY_MOVE) || IsDeadOrIncap() || IsStandingStill())
+		if(!(mobility_flags & MOBILITY_MOVE) || IsDeadOrIncap() || IsStandingStill() || is_move_blocked_by_grab())
 			sleep(movespeed) // wait one movement tick to see if we're finished/recovered
 			continue
 		if(world.time > (move_started + /datum/controller/subsystem/humannpc::wait))
 			// we ran out of time and started the next tick!
 			break
 		if(length(myPath))
-			var/turf/next_step = get_step_to(src,myPath[1])
-			if(!step(src,get_dir(src, next_step))) // try to move onto or along our path
+			var/move_dir = get_dir(src, myPath[1])
+			var/turf/next_step = get_step(src, move_dir)
+			if(!next_step)
+				pathing_frustration++
+				myPath -= myPath[1]
+				continue
+			if(!step(src, move_dir)) // try to move onto or along our path
 				for(var/obj/structure/O in next_step)
 					if(O.density && O.climbable)
 						O.climb_structure(src)
@@ -158,6 +163,7 @@
 				pathing_frustration++
 			else if(loc == myPath[1]) // if we made it to the right part of our path
 				.++
+				pathing_frustration = 0
 				myPath -= myPath[1]
 			sleep(movespeed) // wait until next move
 
@@ -178,6 +184,8 @@
 	if(turf_of_target?.z == z)
 		if(!length(myPath)) // need a new path
 			myPath = get_path_to(src, turf_of_target, TYPE_PROC_REF(/turf, Heuristic_cardinal), MAX_RANGE_FIND + 1, 250,1)
+			if(length(myPath))
+				myPath -= get_turf(src) // remove the turf we start on
 			pathing_frustration = 0
 		return TRUE
 	//too far away or pathing failed
@@ -341,8 +349,12 @@
 			if(!flee_target || get_dist(src, target) >= NPC_FLEE_DISTANCE)
 				back_to_idle()
 			else
-				// try to walk offscreen
-				walk_away(src, target, NPC_FLEE_DISTANCE, update_movespeed())
+				// try to walk offscreen if we aren't being grabbed by someone else
+				if(!is_move_blocked_by_grab())
+					// todo: use A* to find the shortest path to the farthest tile away from the flee target?
+					walk_away(src, target, NPC_FLEE_DISTANCE, update_movespeed())
+				else
+					walk(src, 0)
 			return TRUE
 
 	return IsStandingStill()
