@@ -34,8 +34,8 @@
 	H.mind.adjust_skillrank(/datum/skill/magic/arcane, SKILL_LEVEL_JOURNEYMAN, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/misc/reading, SKILL_LEVEL_NOVICE, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/craft/crafting, SKILL_LEVEL_EXPERT, TRUE)
-	H.mind.adjust_skillrank(/datum/skill/craft/carpentry, rand(4,5), TRUE)
-	H.mind.adjust_skillrank(/datum/skill/craft/masonry, rand(1,2), TRUE)
+	H.mind.adjust_skillrank(/datum/skill/craft/carpentry, rand(SKILL_LEVEL_EXPERT,SKILL_LEVEL_MASTER), TRUE)
+	H.mind.adjust_skillrank(/datum/skill/craft/masonry, rand(SKILL_LEVEL_NOVICE,SKILL_LEVEL_APPRENTICE), TRUE)
 
 	belt = /obj/item/storage/belt/rogue/leather
 	pants = /obj/item/clothing/under/roguetown/tights/black

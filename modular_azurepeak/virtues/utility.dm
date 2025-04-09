@@ -2,7 +2,7 @@
 	name = "Nobility"
 	desc = "By birth, blade or brain, I am noble known to the royalty of these lands, and have all the benefits associated with it."
 	added_traits = list(TRAIT_NOBLE)
-	added_skills = list(list(/datum/skill/misc/reading, 1, 6))
+	added_skills = list(list(/datum/skill/misc/reading, 1, SKILL_LEVEL_LEGENDARY))
 	added_stashed_items = list("Heirloom Amulet" = /obj/item/clothing/neck/roguetown/ornateamulet/noble)
 
 /datum/virtue/utility/noble/apply_to_human(mob/living/carbon/human/recipient)
@@ -32,7 +32,7 @@
 	name = "Light Steps"
 	desc = "Years of skulking about have left my steps quiet, and my hunched gait quicker."
 	added_traits = list(TRAIT_LIGHT_STEP)
-	added_skills = list(list(/datum/skill/misc/sneaking, 3, 6))
+	added_skills = list(list(/datum/skill/misc/sneaking, 3, SKILL_LEVEL_LEGENDARY))
 
 /datum/virtue/utility/resident
 	name = "Resident"
@@ -101,7 +101,7 @@
 	desc = "I've spent my life surrounded by various books or sophisticated foreigners, be it through travel or other fortunes beset on my life. I've picked up several tongues and wits, and keep a journal closeby. I can tell people's exact prowess."
 	custom_text = "Maximizes Assess benefits with a bonus of the target's Stats. Allows the choice of 3 languages to learn upon joining. +1 INT."
 	added_traits = list(TRAIT_INTELLECTUAL)
-	added_skills = list(list(/datum/skill/misc/reading, 3, 6))
+	added_skills = list(list(/datum/skill/misc/reading, 3, SKILL_LEVEL_LEGENDARY))
 	added_stashed_items = list(
 		"Quill" = /obj/item/natural/feather,
 		"Scroll" = /obj/item/paper/scroll,
@@ -153,41 +153,41 @@
 /datum/virtue/utility/blacksmith
 	name = "Blacksmith's Apprentice"
 	desc = "In my youth, I worked under a skilled blacksmith, honing my skills with an anvil."
-	added_skills = list(list(/datum/skill/craft/crafting, 2, 2),
-						list(/datum/skill/craft/weaponsmithing, 2, 2),
-						list(/datum/skill/craft/armorsmithing, 2, 2),
-						list(/datum/skill/craft/blacksmithing, 2, 2),
-						list(/datum/skill/craft/smelting, 2, 2)
+	added_skills = list(list(/datum/skill/craft/crafting, 2, SKILL_LEVEL_APPRENTICE),
+						list(/datum/skill/craft/weaponsmithing, 2, SKILL_LEVEL_APPRENTICE),
+						list(/datum/skill/craft/armorsmithing, 2, SKILL_LEVEL_APPRENTICE),
+						list(/datum/skill/craft/blacksmithing, 2, SKILL_LEVEL_APPRENTICE),
+						list(/datum/skill/craft/smelting, 2, SKILL_LEVEL_APPRENTICE)
 	)
 
 /datum/virtue/utility/hunter
 	name = "Hunter's Apprentice"
 	desc = "In my youth, I trained under a skilled hunter, learning how to butcher animals and work with leather/hide."
-	added_skills = list(list(/datum/skill/craft/crafting, 2, 2),
-						list(/datum/skill/craft/traps, 2, 2),
-						list(/datum/skill/labor/butchering, 2, 2),
-						list(/datum/skill/misc/sewing, 2, 2),
-						list(/datum/skill/craft/tanning, 2, 2),
-						list(/datum/skill/misc/tracking, 2, 2)
+	added_skills = list(list(/datum/skill/craft/crafting, 2, SKILL_LEVEL_APPRENTICE),
+						list(/datum/skill/craft/traps, 2, SKILL_LEVEL_APPRENTICE),
+						list(/datum/skill/labor/butchering, 2, SKILL_LEVEL_APPRENTICE),
+						list(/datum/skill/misc/sewing, 2, SKILL_LEVEL_APPRENTICE),
+						list(/datum/skill/craft/tanning, 2, SKILL_LEVEL_APPRENTICE),
+						list(/datum/skill/misc/tracking, 2, SKILL_LEVEL_APPRENTICE)
 	)
 
 /datum/virtue/utility/artificer
 	name = "Artificer's Apprentice"
 	desc = "In my youth, I worked under a skilled artificer, studying construction and engineering."
-	added_skills = list(list(/datum/skill/craft/crafting, 2, 2),
-						list(/datum/skill/craft/carpentry, 2, 2),
-						list(/datum/skill/craft/masonry, 2, 2),
-						list(/datum/skill/craft/engineering, 2, 2),
-						list(/datum/skill/craft/smelting, 2, 2)
+	added_skills = list(list(/datum/skill/craft/crafting, 2, SKILL_LEVEL_APPRENTICE),
+						list(/datum/skill/craft/carpentry, 2, SKILL_LEVEL_APPRENTICE),
+						list(/datum/skill/craft/masonry, 2, SKILL_LEVEL_APPRENTICE),
+						list(/datum/skill/craft/engineering, 2, SKILL_LEVEL_APPRENTICE),
+						list(/datum/skill/craft/smelting, 2, SKILL_LEVEL_APPRENTICE)
 	)
 
 /datum/virtue/utility/physician
 	name = "Physician's Apprentice"
 	desc = "In my youth, I worked under a skilled physician, studying medicine and alchemy."
 	added_stashed_items = list("Medicine Pouch" = /obj/item/storage/belt/rogue/pouch/medicine)
-	added_skills = list(list(/datum/skill/craft/crafting, 2, 2),
-						list(/datum/skill/craft/alchemy, 2, 2),
-						list(/datum/skill/misc/medicine, 2, 2)
+	added_skills = list(list(/datum/skill/craft/crafting, 2, SKILL_LEVEL_APPRENTICE),
+						list(/datum/skill/craft/alchemy, 2, SKILL_LEVEL_APPRENTICE),
+						list(/datum/skill/misc/medicine, 2, SKILL_LEVEL_APPRENTICE)
 	)
 
 /datum/virtue/utility/feral_appetite
@@ -213,7 +213,7 @@
 	desc = "Music, artistry and the act of showmanship carried me through life. I've hidden a favorite instrument of mine, know how to please anyone I touch, and how to crack the eggs of hecklers."
 	custom_text = "Comes with a stashed instrument of your choice. You choose the instrument after spawning in."
 	added_traits = list(TRAIT_NUTCRACKER, TRAIT_GOODLOVER)
-	added_skills = list(list(/datum/skill/misc/music, 3, 6))
+	added_skills = list(list(/datum/skill/misc/music, 3, SKILL_LEVEL_LEGENDARY))
 
 /datum/virtue/utility/performer/apply_to_human(mob/living/carbon/human/recipient)
     addtimer(CALLBACK(src, .proc/performer_apply, recipient), 50)
@@ -234,13 +234,13 @@
 	name = "Larcenous"
 	desc = "Whether it was asked of you, or by a calling for the rush deep within your hollow heart, you seek things that don't belong you. You know how to work a lock, and have stashed a ring of them, for just the occasion."
 	added_stashed_items = list("Lockpick Ring" = /obj/item/lockpickring/mundane)
-	added_skills = list(list(/datum/skill/misc/lockpicking, 3, 6))
+	added_skills = list(list(/datum/skill/misc/lockpicking, 3, SKILL_LEVEL_LEGENDARY))
 
 /datum/virtue/utility/granary
 	name = "Personal Granary"
 	desc = "You've worked in or around the kitchens enough to steal away a sack of supplies that no one would surely miss, just in case. You've picked up on some cooking tips in your spare time, as well."
 	added_stashed_items = list("Bag of Food" = /obj/item/storage/roguebag/food)
-	added_skills = list(list(/datum/skill/craft/cooking, 3, 6))
+	added_skills = list(list(/datum/skill/craft/cooking, 3, SKILL_LEVEL_LEGENDARY))
 
 /datum/virtue/utility/mining
 	name = "Miner's Apprentice"
@@ -248,7 +248,7 @@
 	added_stashed_items = list(
 		"Steel Pickaxe" = /obj/item/rogueweapon/pick/steel,
 		"Lamptern" = /obj/item/flashlight/flare/torch/lantern)
-	added_skills = list(list(/datum/skill/labor/mining, 3, 6))
+	added_skills = list(list(/datum/skill/labor/mining, 3, SKILL_LEVEL_LEGENDARY))
 
 /datum/virtue/utility/ugly
 	name = "Ugly"
@@ -281,7 +281,7 @@
 /datum/virtue/utility/tracker
 	name = "Sleuth"
 	desc = "You realised long ago that the ability to find a man is as helpful to aid the law as it is to evade it."
-	added_skills = list(list(/datum/skill/misc/tracking, 3, 6))
+	added_skills = list(list(/datum/skill/misc/tracking, 3, SKILL_LEVEL_LEGENDARY))
 	added_traits = list(TRAIT_SLEUTH)
 	custom_text = "- Upon right clicking a track, you will Mark the person who made them <i>(Expert skill required, not exclusive to this Virtue)</i>.\n- Further tracks found will be automatically highlighted as theirs, along with the person themselves, if they are not sneaking or invisible at the time.\n- Reduces the cooldown for tracking, allows track examining right away, and movement no longer cancels tracking."
 
@@ -289,7 +289,7 @@
 	name = "Bronze Arm (R)"
 	desc = "Through connections or wealth, my arm had been replaced by one of bronze and gears, that can grip and hold onto things. I've learned just a bit of Engineering as a result."
 	custom_text = "Replaces your Right arm with a prosthetic Bronze one. Incompatible with Wood Arm (R) vice"
-	added_skills = list(list(/datum/skill/craft/engineering, 1, 6))
+	added_skills = list(list(/datum/skill/craft/engineering, 1, SKILL_LEVEL_LEGENDARY))
 
 /datum/virtue/utility/bronzearm_r/apply_to_human(mob/living/carbon/human/recipient)
 	. = ..()
@@ -308,7 +308,7 @@
 	name = "Bronze Arm (L)"
 	desc = "Through connections or wealth, my arm had been replaced by one of bronze and gears, that can grip and hold onto things. I've learned just a bit of Engineering as a result."
 	custom_text = "Replaces your Left arm with a prosthetic Bronze one. Incompatible with Wood Arm (L) vice"
-	added_skills = list(list(/datum/skill/craft/engineering, 1, 6))
+	added_skills = list(list(/datum/skill/craft/engineering, 1, SKILL_LEVEL_LEGENDARY))
 
 /datum/virtue/utility/bronzearm_l/apply_to_human(mob/living/carbon/human/recipient)
 	. = ..()

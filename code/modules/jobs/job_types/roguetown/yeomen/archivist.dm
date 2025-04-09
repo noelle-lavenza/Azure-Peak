@@ -186,7 +186,7 @@
 							if(do_after(usr, teachingtime, target = L))
 								user.visible_message("<font color='yellow'>[user] teaches [L] a lesson.</font>")
 								to_chat(usr, span_notice("My student grows a lot more proficient in [item.name]!"))
-								L.mind?.adjust_skillrank(item, 2, FALSE)
+								L.mind?.adjust_skillrank(item, SKILL_LEVEL_APPRENTICE, FALSE)
 								ADD_TRAIT(L, TRAIT_STUDENT, "[type]")
 							else
 								to_chat(usr, span_warning("[L] got distracted and wandered off!"))
@@ -196,7 +196,7 @@
 							if(do_after(usr, teachingtime, target = L))
 								user.visible_message("<font color='yellow'>[user] teaches [L] a lesson.</font>")
 								to_chat(usr, span_notice("My student grows more proficient in [item.name]!"))
-								L.mind?.adjust_skillrank(item, 1, FALSE)
+								L.mind?.adjust_skillrank(item, SKILL_LEVEL_NOVICE, FALSE)
 								ADD_TRAIT(L, TRAIT_STUDENT, "[type]")
 							else
 								to_chat(usr, span_warning("[L] got distracted and wandered off!"))
