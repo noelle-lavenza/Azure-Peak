@@ -233,6 +233,10 @@
 		to_chat(src, span_warning("I can't move!"))
 		return TRUE
 
+// similar to the above, but for NPCs mostly
+/mob/proc/is_move_blocked_by_grab()
+	return pulledby && pulledby != src
+
 /**
   * Allows mobs to ignore density and phase through objects
   *
