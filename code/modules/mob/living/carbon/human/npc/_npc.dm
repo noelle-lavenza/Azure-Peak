@@ -301,11 +301,26 @@
 				frustration++
 
 		if(NPC_AI_FLEE)
-			if(!target || get_dist(src, target) >= 4)
+			var/const/NPC_FLEE_DISTANCE = 8
+			var/flee_target = target
+			if(!flee_target)
+				// try to flee from any enemies who aren't incapacitated
+				for(var/mob/living/bystander in view(src))
+					if(enemies[bystander])
+						if(ishuman(bystander))
+							var/mob/living/carbon/human/human_bystander = bystander
+							if(human_bystander.IsDeadOrIncap())
+								continue
+						else if(stat != CONSCIOUS)
+							continue
+						// found an enemy who might be able to hurt us
+						flee_target = bystander
+					
+			if(!flee_target || get_dist(src, target) >= NPC_FLEE_DISTANCE)
 				back_to_idle()
 			else
-				// walk to a tile more than 5 tiles away
-				walk_away(src, target, 5, update_movespeed())
+				// try to walk offscreen
+				walk_away(src, target, NPC_FLEE_DISTANCE, update_movespeed())
 			return TRUE
 
 	return IsStandingStill()
@@ -384,6 +399,7 @@
 			if (!npc_detect_sneak(L, extra_chance))
 				return
 		mode = NPC_AI_HUNT
+		doing = FALSE // interrupt any in-progress actions, we just got hit!
 		last_aggro_loss = null
 		face_atom(L)
 		if(!target)
