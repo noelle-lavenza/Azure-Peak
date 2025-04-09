@@ -23,7 +23,7 @@
 		if(HAS_TRAIT(living, TRAIT_SEEDKNOW))
 			show_real_identity = TRUE
 		// Journeyman farmers know them too
-		else if(living.mind.get_skill_level(/datum/skill/labor/farming) >= 2)
+		else if(living.mind.get_skill_level(/datum/skill/labor/farming) >= SKILL_LEVEL_APPRENTICE)
 			show_real_identity = TRUE
 	else
 		show_real_identity = TRUE

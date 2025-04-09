@@ -70,9 +70,9 @@
 		to_chat(user, "<span class='notice'>The power of [spellname] is emblazened in your mind!</span>")
 		var/obj/effect/proc_holder/spell/S = new spell
 		user.mind.AddSpell(S)
-		if(user.mind.get_skill_level(/datum/skill/magic/arcane) <= 5)
+		if(user.mind.get_skill_level(/datum/skill/magic/arcane) <= SKILL_LEVEL_MASTER)
 			user.mind.adjust_experience(/datum/skill/magic/arcane, 100, FALSE)
-	else if(user.mind.get_skill_level(/datum/skill/magic/arcane) <= 5)
+	else if(user.mind.get_skill_level(/datum/skill/magic/arcane) <= SKILL_LEVEL_MASTER)
 		to_chat(user, "<span class='notice'>Arcane power is emblazened in your mind!</span>")
 		user.mind.adjust_experience(/datum/skill/magic/arcane, 150, FALSE)
 	user.visible_message("<span class='warning'>[src] glows dark, and then crumbles!</span>")

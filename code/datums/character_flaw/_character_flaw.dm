@@ -155,7 +155,7 @@ GLOBAL_LIST_INIT(character_flaws, list(
 
 /datum/charflaw/badsight/proc/apply_reading_skill(mob/living/carbon/human/H)
 	if(H.mind)
-		H.mind.adjust_skillrank(/datum/skill/misc/reading, 1, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/reading, SKILL_LEVEL_NOVICE, TRUE)
 
 /datum/charflaw/paranoid
 	name = "Paranoid"

@@ -91,12 +91,12 @@
 		if(ishuman(owner.current))
 			var/mob/living/carbon/human/dreamer = owner.current
 			dreamer.cmode_music = 'sound/music/combat_maniac2.ogg'
-			owner.adjust_skillrank(/datum/skill/combat/knives, 6, TRUE)
-			owner.adjust_skillrank(/datum/skill/combat/wrestling, 5, TRUE)
-			owner.adjust_skillrank(/datum/skill/combat/unarmed, 4, TRUE)
+			owner.adjust_skillrank(/datum/skill/combat/knives, SKILL_LEVEL_LEGENDARY, TRUE)
+			owner.adjust_skillrank(/datum/skill/combat/wrestling, SKILL_LEVEL_MASTER, TRUE)
+			owner.adjust_skillrank(/datum/skill/combat/unarmed, SKILL_LEVEL_EXPERT, TRUE)
 			var/medicine_skill = dreamer.mind.get_skill_level(/datum/skill/misc/medicine)
 			if(medicine_skill < 3)// Bumps his skill up to 3 for surgery, not higher
-				owner.adjust_skillrank(/datum/skill/misc/medicine, 3 - medicine_skill, TRUE)
+				owner.adjust_skillrank(/datum/skill/misc/medicine, SKILL_LEVEL_JOURNEYMAN - medicine_skill, TRUE)
 			STASTR = dreamer.STASTR
 			STACON = dreamer.STACON
 			STAEND = dreamer.STAEND

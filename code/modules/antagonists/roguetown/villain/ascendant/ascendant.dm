@@ -73,11 +73,11 @@ var/psydon_ascend = psydon_pool[7]
 			var/unarmed_skill = dreamer.mind.get_skill_level(/datum/skill/combat/unarmed)
 			var/wrestling_skill = dreamer.mind.get_skill_level(/datum/skill/combat/wrestling)
 			if(sword_skill < 6)
-				owner.adjust_skillrank(/datum/skill/combat/swords, 6 - sword_skill, TRUE)
+				owner.adjust_skillrank(/datum/skill/combat/swords, SKILL_LEVEL_LEGENDARY - sword_skill, TRUE)
 			if(unarmed_skill < 6)
-				owner.adjust_skillrank(/datum/skill/combat/unarmed, 6 - unarmed_skill, TRUE)
+				owner.adjust_skillrank(/datum/skill/combat/unarmed, SKILL_LEVEL_LEGENDARY - unarmed_skill, TRUE)
 			if(wrestling_skill)
-				owner.adjust_skillrank(/datum/skill/combat/wrestling, 6 - wrestling_skill, TRUE)
+				owner.adjust_skillrank(/datum/skill/combat/wrestling, SKILL_LEVEL_LEGENDARY - wrestling_skill, TRUE)
 			STASTR = dreamer.STASTR
 			STACON = dreamer.STACON
 			STAEND = dreamer.STAEND

@@ -43,7 +43,7 @@ GLOBAL_VAR_INIT(herald_spawned, FALSE)
 /datum/outfit/job/roguetown/adventurer/herald/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.verbs += /mob/living/carbon/human/proc/heraldannouncement
-	H.mind.adjust_skillrank(/datum/skill/misc/reading, 3, TRUE)
+	H.mind.adjust_skillrank(/datum/skill/misc/reading, SKILL_LEVEL_JOURNEYMAN, TRUE)
 
 	head = /obj/item/clothing/head/roguetown/bardhat
 	shoes = /obj/item/clothing/shoes/roguetown/boots

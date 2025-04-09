@@ -81,7 +81,7 @@
 				groupplaying = FALSE
 		if(!groupplaying)
 			var/list/options = song_list.Copy()
-			if(user.mind && user.mind.get_skill_level(/datum/skill/misc/music) >= 4)
+			if(user.mind && user.mind.get_skill_level(/datum/skill/misc/music) >= SKILL_LEVEL_EXPERT)
 				options["Upload New Song"] = "upload"
 			
 			var/choice = input(user, "Which song?", "Music", name) as null|anything in options
