@@ -299,7 +299,7 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 								var/obj/item/wornthing = stuff
 								if(wornthing.associated_skill)
 									var/datum/skill/SK = wornthing.associated_skill
-									if(user.mind?.get_skill_level(SK) > 0)
+									if(user.mind?.get_skill_level(SK) > SKILL_LEVEL_NONE)
 										dat += "<font size = 4; font color = '#dddada'><b>[SK.name]</b><br></font>"
 										var/skilldiff = user.mind?.get_skill_level(SK) - H.mind?.get_skill_level(SK)
 										dat += "[skilldiff_report(skilldiff)] <br>"
@@ -308,7 +308,7 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 						if(!(I.item_flags & ABSTRACT))
 							if(I.associated_skill)
 								var/datum/skill/SK = I.associated_skill
-								if(user.mind?.get_skill_level(SK) > 0)
+								if(user.mind?.get_skill_level(SK) > SKILL_LEVEL_NONE)
 									dat += "<font size = 4; font color = '#dddada'><b>[SK.name]</b><br></font>"
 									var/skilldiff = user.mind?.get_skill_level(SK) - H.mind?.get_skill_level(SK)
 									dat += "[skilldiff_report(skilldiff)] <br>"
@@ -316,14 +316,14 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 				else	//Otherwise, we get to see all of their combat skills
 					for(var/S in subtypesof(/datum/skill/combat))
 						var/datum/skill/combat/SK = S
-						if(user.mind?.get_skill_level(S) > 0)
+						if(user.mind?.get_skill_level(S) > SKILL_LEVEL_NONE)
 							dat += "<font size = 4; font color = '#dddada'><b>[SK.name]</b><br></font>"
 							var/skilldiff = user.mind?.get_skill_level(S) - H.mind?.get_skill_level(S)
 							dat += "[skilldiff_report(skilldiff)] <br>"
 							dat += "-----------------------<br>"
 					if(is_smart)	//And if we're smart enough, /all/ skills.
 						for(var/S in subtypesof(/datum/skill))
-							if(user.mind?.get_skill_level(S) > 0)
+							if(user.mind?.get_skill_level(S) > SKILL_LEVEL_NONE)
 								if(!ispath(S, /datum/skill/combat))	//We already did these.
 									var/datum/skill/SL = S
 									dat += "<font size = 4; font color = '#dddada'><b>[SL.name]</b><br></font>"

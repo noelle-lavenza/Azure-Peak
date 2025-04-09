@@ -38,8 +38,8 @@
 
 /obj/item/twstrap/attack_right(mob/user)
 	if(tweps.len)
-		if(user.mind.get_skill_level(/datum/skill/combat/knives)<2)
-			if(do_after(user, 20, target = user)) //Limits those not skilled in knives from using it properly
+		if(user.mind.get_skill_level(/datum/skill/combat/knives) <= SKILL_LEVEL_NOVICE)
+			if(do_after(user, 2 SECONDS, target = user)) //Limits those not skilled in knives from using it properly
 				to_chat(user, span_notice("You fumble to draw a throwing weapon..."))
 				var/obj/O = tweps[tweps.len]
 				tweps -= O

@@ -33,7 +33,7 @@
 		if(attacked_prosthetic.obj_integrity >= attacked_prosthetic.max_integrity && attacked_prosthetic.brute_dam == 0 && attacked_prosthetic.burn_dam == 0 && attacked_prosthetic.wounds == null && attacked_prosthetic.disabled == BODYPART_NOT_DISABLED) //A mouthful
 			to_chat(user, span_warning("There is nothing to further repair on [attacked_prosthetic]."))
 			return
-		if(blacksmith_mind.get_skill_level(attacked_prosthetic.anvilrepair) <= 0)
+		if(blacksmith_mind.get_skill_level(attacked_prosthetic.anvilrepair) <= SKILL_LEVEL_NONE)
 			if(prob(30))
 				repair_percent = 0.01
 			else
@@ -70,7 +70,7 @@
 			to_chat(user, span_warning("I should put this on a table or an anvil first."))
 			return
 
-		if(blacksmith_mind.get_skill_level(attacked_item.anvilrepair) <= 0)
+		if(blacksmith_mind.get_skill_level(attacked_item.anvilrepair) <= SKILL_LEVEL_NONE)
 			if(HAS_TRAIT(user, TRAIT_SQUIRE_REPAIR) && locate(/obj/machinery/anvil) in attacked_object.loc)
 				repair_percent = 0.035
 			else if(prob(30))
@@ -105,7 +105,7 @@
 		var/obj/structure/attacked_structure = attacked_object
 		if(!attacked_structure.hammer_repair || !attacked_structure.max_integrity)
 			return
-		if(blacksmith_mind.get_skill_level(attacked_structure.hammer_repair) <= 0)
+		if(blacksmith_mind.get_skill_level(attacked_structure.hammer_repair) <= SKILL_LEVEL_NONE)
 			to_chat(user, span_warning("I don't know how to repair this.."))
 			return
 		repair_percent *= blacksmith_mind.get_skill_level(attacked_structure.hammer_repair) * attacked_structure.max_integrity
@@ -174,7 +174,7 @@
 		if(T.hammer_repair && T.max_integrity && !T.obj_broken)
 			var/repair_percent = 0.05
 			if(user.mind)
-				if(user.mind.get_skill_level(I.hammer_repair) <= 0)
+				if(user.mind.get_skill_level(I.hammer_repair) <= SKILL_LEVEL_NONE)
 					to_chat(user, span_warning("I don't know how to repair this.."))
 					return
 				repair_percent = max(user.mind.get_skill_level(I.hammer_repair) * 0.05, 0.05)

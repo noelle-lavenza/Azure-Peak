@@ -30,7 +30,7 @@
 /datum/sleep_adv/proc/adjust_sleep_xp(skill, adjust)
 	var/current_xp = get_sleep_xp(skill)
 	var/target_xp = current_xp + adjust
-	var/cap_exp = get_requried_sleep_xp_for_skill(skill, 2)
+	var/cap_exp = get_required_sleep_xp_for_skill(skill, 2)
 	target_xp = clamp(target_xp, 0, cap_exp)
 	sleep_exp[skill] = target_xp
 
@@ -53,12 +53,12 @@
 	var/skill_level = mind.get_skill_level(skill_type)
 	if(skill_level == SKILL_LEVEL_LEGENDARY)
 		return FALSE
-	var/needed_xp = get_requried_sleep_xp_for_skill(skill_type, level_amount)
+	var/needed_xp = get_required_sleep_xp_for_skill(skill_type, level_amount)
 	if(get_sleep_xp(skill_type) < needed_xp)
 		return FALSE
 	return TRUE
 
-/datum/sleep_adv/proc/get_requried_sleep_xp_for_skill(skill_type, level_amount)
+/datum/sleep_adv/proc/get_required_sleep_xp_for_skill(skill_type, level_amount)
 	var/skill_level = mind.get_skill_level(skill_type)
 	var/next_skill_level = skill_level
 	var/needed_xp = 0
@@ -213,7 +213,7 @@
 		to_chat(mind.current, span_notice("Malum's blessing reduces the dream point cost of your crafting training."))
 	
 	sleep_adv_points -= get_skill_cost(skill_type)
-	adjust_sleep_xp(skill_type, -get_requried_sleep_xp_for_skill(skill_type, 1))
+	adjust_sleep_xp(skill_type, -get_required_sleep_xp_for_skill(skill_type, 1))
 	mind.adjust_skillrank(skill_type, 1, FALSE)
 
 /datum/sleep_adv/proc/grant_inspiration_xp(skill_amt)
@@ -229,7 +229,7 @@
 		if(current_skill_level >= INSPIRATION_MAX_SKILL_LEVEL)
 			continue
 		var/required_level_to_cap = INSPIRATION_MAX_SKILL_LEVEL - current_skill_level
-		var/req_exp = get_requried_sleep_xp_for_skill(skill_type, required_level_to_cap)
+		var/req_exp = get_required_sleep_xp_for_skill(skill_type, required_level_to_cap)
 		if(get_sleep_xp(skill_type) >= req_exp)
 			continue
 		viable_skills += skill_type
@@ -238,7 +238,7 @@
 		if(!length(viable_skills))
 			break
 		var/skill_type = pick_n_take(viable_skills)
-		var/req_exp = get_requried_sleep_xp_for_skill(skill_type, 1)
+		var/req_exp = get_required_sleep_xp_for_skill(skill_type, 1)
 		var/datum/skill/skill = GetSkillRef(skill_type)
 		add_sleep_experience(skill_type, req_exp, TRUE)
 		inspired_skill_names += skill.name

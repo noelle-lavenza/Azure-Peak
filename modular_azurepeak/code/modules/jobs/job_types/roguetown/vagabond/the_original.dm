@@ -26,9 +26,9 @@
 		r_hand = /obj/item/rogue/instrument/flute
 
 	if (H.mind)
-		H.mind.adjust_skillrank(/datum/skill/misc/sneaking, 2, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/misc/stealing, 4, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/misc/climbing, 4, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/sneaking, SKILL_LEVEL_APPRENTICE, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/stealing, SKILL_LEVEL_EXPERT, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/climbing, SKILL_LEVEL_EXPERT, TRUE)
 		H.STALUC = rand(5, 15)
 		H.change_stat("intelligence", round(rand(-4,4)))
 		H.change_stat("constitution", -1)

@@ -23,16 +23,16 @@
 				H.change_stat("endurance", 3)
 				H.change_stat("strength", 1)
 				H.change_stat("speed", -2)
-				H.mind.adjust_skillrank(/datum/skill/misc/reading, 4, TRUE)
-				H.mind.adjust_skillrank(/datum/skill/craft/armorsmithing, 4, TRUE)	//Shouldn't be better than the smith (though the stats are already)
-				H.mind.adjust_skillrank(/datum/skill/craft/blacksmithing, 3, TRUE)	//But shouldn't be too low for the Soldier to be able to grind up to easily
-				H.mind.adjust_skillrank(/datum/skill/craft/smelting, 3, TRUE)
-				H.mind.adjust_skillrank(/datum/skill/combat/maces, 3, TRUE)
-				H.mind.adjust_skillrank(/datum/skill/misc/athletics, 3, TRUE)
-				H.mind.adjust_skillrank(/datum/skill/combat/unarmed, 3, TRUE)
-				H.mind.adjust_skillrank(/datum/skill/combat/wrestling, 3, TRUE)
-				H.mind.adjust_skillrank(/datum/skill/craft/weaponsmithing, 1, TRUE)
-				H.mind.adjust_skillrank(/datum/skill/misc/climbing, 1, TRUE)
+				H.mind.adjust_skillrank(/datum/skill/misc/reading, SKILL_LEVEL_EXPERT, TRUE)
+				H.mind.adjust_skillrank(/datum/skill/craft/armorsmithing, SKILL_LEVEL_EXPERT, TRUE)	//Shouldn't be better than the smith (though the stats are already)
+				H.mind.adjust_skillrank(/datum/skill/craft/blacksmithing, SKILL_LEVEL_JOURNEYMAN, TRUE)	//But shouldn't be too low for the Soldier to be able to grind up to easily
+				H.mind.adjust_skillrank(/datum/skill/craft/smelting, SKILL_LEVEL_JOURNEYMAN, TRUE)
+				H.mind.adjust_skillrank(/datum/skill/combat/maces, SKILL_LEVEL_JOURNEYMAN, TRUE)
+				H.mind.adjust_skillrank(/datum/skill/misc/athletics, SKILL_LEVEL_JOURNEYMAN, TRUE)
+				H.mind.adjust_skillrank(/datum/skill/combat/unarmed, SKILL_LEVEL_JOURNEYMAN, TRUE)
+				H.mind.adjust_skillrank(/datum/skill/combat/wrestling, SKILL_LEVEL_JOURNEYMAN, TRUE)
+				H.mind.adjust_skillrank(/datum/skill/craft/weaponsmithing, SKILL_LEVEL_NOVICE, TRUE)
+				H.mind.adjust_skillrank(/datum/skill/misc/climbing, SKILL_LEVEL_NOVICE, TRUE)
 				shoes = /obj/item/clothing/shoes/roguetown/boots/armor/dwarven
 				cloak = /obj/item/clothing/cloak/forrestercloak/snow
 				belt = /obj/item/storage/belt/rogue/leather/black
@@ -49,15 +49,15 @@
 				H.change_stat("endurance", 4)
 				H.change_stat("strength", 2)
 				H.change_stat("speed", -2)
-				H.mind.adjust_skillrank(/datum/skill/combat/axes, 4, TRUE)
-				H.mind.adjust_skillrank(/datum/skill/combat/maces, 4, TRUE)
-				H.mind.adjust_skillrank(/datum/skill/misc/reading, 4, TRUE)
-				H.mind.adjust_skillrank(/datum/skill/misc/athletics, 3, TRUE)
-				H.mind.adjust_skillrank(/datum/skill/combat/unarmed, 3, TRUE)
-				H.mind.adjust_skillrank(/datum/skill/combat/wrestling, 3, TRUE)
-				H.mind.adjust_skillrank(/datum/skill/misc/tracking, 3, TRUE)
-				H.mind.adjust_skillrank(/datum/skill/craft/armorsmithing, 2, TRUE)	//Only here so they'd be able to repair their own armor integrity
-				H.mind.adjust_skillrank(/datum/skill/misc/climbing, 1, TRUE)
+				H.mind.adjust_skillrank(/datum/skill/combat/axes, SKILL_LEVEL_EXPERT, TRUE)
+				H.mind.adjust_skillrank(/datum/skill/combat/maces, SKILL_LEVEL_EXPERT, TRUE)
+				H.mind.adjust_skillrank(/datum/skill/misc/reading, SKILL_LEVEL_EXPERT, TRUE)
+				H.mind.adjust_skillrank(/datum/skill/misc/athletics, SKILL_LEVEL_JOURNEYMAN, TRUE)
+				H.mind.adjust_skillrank(/datum/skill/combat/unarmed, SKILL_LEVEL_JOURNEYMAN, TRUE)
+				H.mind.adjust_skillrank(/datum/skill/combat/wrestling, SKILL_LEVEL_JOURNEYMAN, TRUE)
+				H.mind.adjust_skillrank(/datum/skill/misc/tracking, SKILL_LEVEL_JOURNEYMAN, TRUE)
+				H.mind.adjust_skillrank(/datum/skill/craft/armorsmithing, SKILL_LEVEL_APPRENTICE, TRUE)	//Only here so they'd be able to repair their own armor integrity
+				H.mind.adjust_skillrank(/datum/skill/misc/climbing, SKILL_LEVEL_NOVICE, TRUE)
 				shoes = /obj/item/clothing/shoes/roguetown/boots/armor/dwarven
 				cloak = /obj/item/clothing/cloak/forrestercloak/snow
 				belt = /obj/item/storage/belt/rogue/leather/black

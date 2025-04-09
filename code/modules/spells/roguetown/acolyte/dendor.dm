@@ -144,49 +144,49 @@ var/static/list/druid_forms = list(
 	// Basic forms (Level 1)
 	"cat" = list(
 		"path" = /mob/living/simple_animal/hostile/retaliate/rogue/cat,
-		"level" = 1
+		"level" = SKILL_LEVEL_NOVICE
 	),
 	"mudcrab" = list(
 		"path" = /mob/living/simple_animal/hostile/retaliate/rogue/mudcrab,
-		"level" = 1
+		"level" = SKILL_LEVEL_NOVICE
 	),
 	"rous" = list(
 		"path" = /mob/living/simple_animal/hostile/retaliate/rogue/bigrat,
-		"level" = 2
+		"level" = SKILL_LEVEL_APPRENTICE
 	),
 	// Intermediate forms (Level 2-3)
 	"volf" = list(
 		"path" = /mob/living/simple_animal/hostile/retaliate/rogue/wolf,
-		"level" = 2
+		"level" = SKILL_LEVEL_APPRENTICE
 	),
 	"spider" = list(
 		"path" = /mob/living/simple_animal/hostile/retaliate/rogue/spider,
-		"level" = 2
+		"level" = SKILL_LEVEL_APPRENTICE
 	),
 	"mossback" = list(
 		"path" = /mob/living/simple_animal/hostile/retaliate/rogue/mossback,
-		"level" = 3
+		"level" = SKILL_LEVEL_JOURNEYMAN
 	),
 	"mole" = list(
 		"path" = /mob/living/simple_animal/hostile/retaliate/rogue/mole,
-		"level" = 3
+		"level" = SKILL_LEVEL_JOURNEYMAN
 	),
 	"saiga" = list(
 		"path" = /mob/living/simple_animal/hostile/retaliate/rogue/saiga,
-		"level" = 3
+		"level" = SKILL_LEVEL_JOURNEYMAN
 	),
 	// Advanced forms (Level 6) - Commented out
 	/*"dragon" = list(
 		"path" = /mob/living/simple_animal/hostile/retaliate/rogue/dragon,
-		"level" = 6
+		"level" = SKILL_LEVEL_LEGENDARY
 	),
 	"minotaur" = list(
 		"path" = /mob/living/simple_animal/hostile/retaliate/rogue/minotaur,
-		"level" = 6
+		"level" = SKILL_LEVEL_LEGENDARY
 	),
 	"troll" = list(
 		"path" = /mob/living/simple_animal/hostile/retaliate/rogue/troll,
-		"level" = 6
+		"level" = SKILL_LEVEL_LEGENDARY
 	),*/
 )
 
