@@ -138,9 +138,10 @@
 	layer = TABLE_LAYER - 0.1
 	var/bleed_layer = 0
 	var/progression = 0
+	var/const/SNOW_LAYERS = 3
 	var/turf/snowed_turf
-	var/list/snows_connections = list(list("0", "0", "0", "0"), list("0", "0", "0", "0"), list("0", "0", "0", "0"))
-	var/list/diged = list("2" = 0, "1" = 0, "8" = 0, "4" = 0)
+	var/list/snows_connections
+	var/list/diged
 
 /obj/structure/snow/Initialize(mapload, bleed_layers)
 	. = ..()
@@ -261,8 +262,6 @@
 		snowed_turf.snow = src
 
 	for(var/obj/structure/snow/bordered_snow in orange(src, 1))
-		if(!bordered_snow)
-			continue
 		if(ignored == bordered_snow)
 			continue
 
@@ -288,12 +287,12 @@
 	if(overlays)
 		overlays.Cut()
 
-	for(var/deep = 1 to length(snows_connections))
+	for(var/deep = 1 to length(snows_connections) || SNOW_LAYERS)
 		if(deep > bleed_layer)
 			continue
 
 		for(var/i = 1 to 4)
-			overlays += image(icon, "[icon_prefix]_[deep]_[snows_connections[deep][i]]", dir = 1<<(i-1))
+			overlays += image(icon, "[icon_prefix]_[deep]_[snows_connections?[deep]?[i] || 0]", dir = 1<<(i-1))
 
 	var/new_overlay = ""
 	for(var/i in diged)
@@ -368,7 +367,9 @@
 		set_diged_ways(gone.dir)
 
 /obj/structure/snow/proc/set_diged_ways(dir)
-	diged["[dir]"] = world.time + 1 MINUTES
+	if(!diged)
+		diged = list("2" = 0, "1" = 0, "8" = 0, "4" = 0)
+	diged[num2text(dir)] = world.time + 1 MINUTES
 	update_overlays()
 
 #define CORNER_NONE 0
@@ -399,7 +400,6 @@
 #undef CORNER_COUNTERCLOCKWISE
 #undef CORNER_DIAGONAL
 #undef CORNER_CLOCKWISE
-
 
 /turf/Exited(atom/movable/gone, direction)
 	if(!istype(gone))
