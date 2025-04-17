@@ -64,7 +64,7 @@ SUBSYSTEM_DEF(outdoor_effects)
 	var/list/turf_weather_affectable_z_levels = list()
 
 /datum/controller/subsystem/outdoor_effects/proc/fullPlonk()
-	for (var/z in SSmapping.levels_by_trait(ZTRAIT_STATION))
+	for (var/z in reverseRange(SSmapping.levels_by_trait(ZTRAIT_STATION))) // go from highest to lowest so we take full advantage of the cache
 		for (var/turf/T in block(locate(1,1,z), locate(world.maxx,world.maxy,z)))
 			GLOB.SUNLIGHT_QUEUE_WORK += T
 
@@ -82,9 +82,8 @@ SUBSYSTEM_DEF(outdoor_effects)
 	return ..()
 
 /datum/controller/subsystem/outdoor_effects/proc/InitializeTurfs(list/targets)
-	for (var/z in SSmapping.levels_by_trait(ZTRAIT_STATION))
-		for (var/turf/T in block(locate(1,1,z), locate(world.maxx,world.maxy,z)))
-			GLOB.SUNLIGHT_QUEUE_WORK += T
+	for (var/z in reverseRange(SSmapping.levels_by_trait(ZTRAIT_STATION))) // go from highest to lowest so we take full advantage of the cache
+		GLOB.SUNLIGHT_QUEUE_WORK += block(locate(1,1,z), locate(world.maxx,world.maxy,z))
 
 
 /datum/controller/subsystem/outdoor_effects/proc/check_cycle()
@@ -185,13 +184,13 @@ SUBSYSTEM_DEF(outdoor_effects)
 
 		/* if we haven't initialized but we are affected, create new and check state */
 		if(!U)
-			T.outdoor_effect = new /atom/movable/outdoor_effect(T)
+			T.outdoor_effect = new /atom/movable/outdoor_effect(T) // force-create one
 			T.get_sky_and_weather_states()
 			U = T.outdoor_effect
 
 			/* in case we aren't indoor somehow, wack us into the proc queue, we will be skipped on next indoor check */
 			if(U.state != SKY_BLOCKED)
-				GLOB.SUNLIGHT_QUEUE_UPDATE += T.outdoor_effect
+				GLOB.SUNLIGHT_QUEUE_UPDATE += U
 
 		if(U.state != SKY_BLOCKED)
 			continue
