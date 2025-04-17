@@ -264,13 +264,6 @@
 	if(!target_turf)
 		return NULLTURF_BORDER
 
-	var/area/target_area = get_area(target_turf)
-	var/area/source_area = get_area(source)
-	if(source_area.canSmoothWithAreas && !is_type_in_typecache(target_area, source_area.canSmoothWithAreas))
-		return null
-	if(target_area.canSmoothWithAreas && !is_type_in_typecache(source_area, target_area.canSmoothWithAreas))
-		return null
-
 	if(source.canSmoothWith)
 		var/atom/A
 		if(source.smooth & SMOOTH_MORE)
@@ -297,16 +290,13 @@
 
 //Icon smoothing helpers
 /proc/smooth_zlevel(zlevel, now = FALSE)
-	var/list/away_turfs = block(locate(1, 1, zlevel), locate(world.maxx, world.maxy, zlevel))
-	for(var/V in away_turfs)
-		var/turf/T = V
+	for(var/turf/T as anything in block(locate(1, 1, zlevel), locate(world.maxx, world.maxy, zlevel)))
 		if(T.smooth)
 			if(now)
 				smooth_icon(T)
 			else
 				queue_smooth(T)
-		for(var/R in T)
-			var/atom/A = R
+		for(var/atom/movable/A as anything in T)
 			if(A.smooth)
 				if(now)
 					smooth_icon(A)
@@ -375,14 +365,16 @@
 
 //SSicon_smooth
 /proc/queue_smooth_neighbors(atom/A)
-	for(var/V in orange(1,A))
-		var/atom/T = V
-		if(T.smooth)
+	for(var/atom/T as anything in orange(1,A))
+		if(T.smooth && !(T.smooth & SMOOTH_QUEUED))
 			queue_smooth(T)
 
 //SSicon_smooth
 /proc/queue_smooth(atom/A)
 	if(!A.smooth || A.smooth & SMOOTH_QUEUED)
+		return
+
+	if(!SSicon_smooth.initialized && A.z <= 2) // skip the queue for these, they're always done directly
 		return
 
 	SSicon_smooth.smooth_queue += A

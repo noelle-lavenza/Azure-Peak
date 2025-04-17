@@ -75,9 +75,6 @@
 
 	var/first_time_text = null
 
-	/// typecache to limit the areas that atoms in this area can smooth with, used for shuttles IIRC
-	var/list/canSmoothWithAreas
-
 	var/list/ambush_types
 	var/list/ambush_mobs
 	var/list/ambush_times
@@ -148,7 +145,6 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		icon_state = ""
 	layer = AREA_LAYER
 	map_name = name // Save the initial (the name set in the map) name of the area.
-	canSmoothWithAreas = typecacheof(canSmoothWithAreas)
 
 
 	if(dynamic_lighting == DYNAMIC_LIGHTING_FORCED)
