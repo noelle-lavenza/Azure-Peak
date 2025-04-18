@@ -526,65 +526,48 @@
 
 
 /turf/proc/roguesmooth(adjacencies)
-	var/list/New
 	var/holder
 
 	for(var/A in neighborlay_list)
 		cut_overlay("[A]")
 		neighborlay_list -= A
-	var/usedturf
+	var/turf/usedturf
 	if(adjacencies & N_NORTH)
 		usedturf = get_step(src, NORTH)
-		if(isturf(usedturf))
-			var/turf/T = usedturf
+		if(usedturf)
 			if(neighborlay_override)
 				holder = "[neighborlay_override]-n"
-				LAZYADD(New, holder)
-				neighborlay_list += holder
-			else if(T.neighborlay)
-				holder = "[T.neighborlay]-n"
-				LAZYADD(New, holder)
-				neighborlay_list += holder
+			else if(usedturf.neighborlay)
+				holder = "[usedturf.neighborlay]-n"
+			add_overlay(holder)
+			neighborlay_list += holder
 	if(adjacencies & N_SOUTH)
 		usedturf = get_step(src, SOUTH)
-		if(isturf(usedturf))
-			var/turf/T = usedturf
+		if(usedturf)
 			if(neighborlay_override)
 				holder = "[neighborlay_override]-s"
-				LAZYADD(New, holder)
-				neighborlay_list += holder
-			else if(T.neighborlay)
-				holder = "[T.neighborlay]-s"
-				LAZYADD(New, holder)
-				neighborlay_list += holder
+			else if(usedturf.neighborlay)
+				holder = "[usedturf.neighborlay]-s"
+			add_overlay(holder)
+			neighborlay_list += holder
 	if(adjacencies & N_WEST)
 		usedturf = get_step(src, WEST)
-		if(isturf(usedturf))
-			var/turf/T = usedturf
+		if(usedturf)
 			if(neighborlay_override)
 				holder = "[neighborlay_override]-w"
-				LAZYADD(New, holder)
-				neighborlay_list += holder
-			else if(T.neighborlay)
-				holder = "[T.neighborlay]-w"
-				LAZYADD(New, holder)
-				neighborlay_list += holder
+			else if(usedturf.neighborlay)
+				holder = "[usedturf.neighborlay]-w"
+			add_overlay(holder)
+			neighborlay_list += holder
 	if(adjacencies & N_EAST)
 		usedturf = get_step(src, EAST)
-		if(isturf(usedturf))
-			var/turf/T = usedturf
+		if(usedturf)
 			if(neighborlay_override)
 				holder = "[neighborlay_override]-e"
-				LAZYADD(New, holder)
-				neighborlay_list += holder
-			else if(T.neighborlay)
-				holder = "[T.neighborlay]-e"
-				LAZYADD(New, holder)
-				neighborlay_list += holder
-
-	if(New)
-		add_overlay(New)
-	return New
+			else if(usedturf.neighborlay)
+				holder = "[usedturf.neighborlay]-e"
+			add_overlay(holder)
+			neighborlay_list += holder
 
 /turf/open/floor/rogue/dirt/nrich
 	name = "enriched soil"
